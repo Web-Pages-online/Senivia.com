@@ -18,9 +18,6 @@ const addonConfig = {
 
 // 1. Personalizador Inteligente
 function openCustomizer(name, price, ingredients, type = "general") {
-  // BLOQUEO DE SEGURIDAD INTERNO
-  if (!checkStoreStatus()) return;
-
   tempItem = { name, price, ingredients, type };
   document.getElementById("modal-title").innerText = name;
 
@@ -92,9 +89,6 @@ function confirmCustomization() {
 
 // 2. Sistema de Carrito (CRUD)
 function add(item, price, details = "") {
-  // BLOQUEO DE SEGURIDAD INTERNO
-  if (!checkStoreStatus()) return;
-
   cart.push({ item, price, details });
   total += price;
   updateCartUI();
@@ -172,47 +166,20 @@ function renderMarketing() {
   });
 }
 
-// --- VERIFICACIÓN DE HORARIO Y BLOQUEO DE INTERACCIÓN ---
+// --- MEJORA: VERIFICAR SI ESTÁ ABIERTO ---
 function checkStoreStatus() {
   const now = new Date();
   const hour = now.getHours();
   const btnContainer = document.querySelector(".whatsapp-final-btn");
   const btnText = btnContainer.querySelector("span");
-  const lockModal = document.getElementById("modal-closed-lock");
-  const appContainer = document.querySelector(".app-container");
-  const addButtons = document.querySelectorAll(".add-btn");
 
-  // Horario: 7 PM (19) a 11 PM (23)
-  const isOpen = hour >= 19 && hour < 23;
-
-  if (isOpen) {
-    appContainer.classList.remove("menu-blocked");
+  // Horario: 19 (7 PM) a 23 (11 PM)
+  if (hour >= 19 && hour < 23) {
     btnText.innerText = "Confirmar en WhatsApp";
     btnContainer.style.background = "#25d366";
     btnContainer.onclick = sendOrder;
-
-    // Restaurar Iconos Originales (+)
-    addButtons.forEach((btn) => {
-      btn.innerHTML = "+";
-    });
-
     return true;
   } else {
-    // BLOQUEO VISUAL DEL CONTENEDOR
-    appContainer.classList.add("menu-blocked");
-
-    // Cambiar iconos de botones a candado
-    addButtons.forEach((btn) => {
-      btn.innerHTML =
-        '<i class="fa-solid fa-lock" style="font-size: 14px;"></i>';
-    });
-
-    if (!sessionStorage.getItem("closedModalShown")) {
-      lockModal.style.display = "flex";
-      document.body.style.overflow = "hidden";
-      sessionStorage.setItem("closedModalShown", "true");
-    }
-
     btnText.innerText = "Local Cerrado (Ver Horarios)";
     btnContainer.style.background = "#999";
     btnContainer.onclick = function () {
@@ -223,18 +190,7 @@ function checkStoreStatus() {
   }
 }
 
-function closeClosedModal() {
-  document.getElementById("modal-closed-lock").style.display = "none";
-  document.body.style.overflow = "auto";
-}
-
-function toggleAddressField(show) {
-  document.getElementById("address-section").style.display = show
-    ? "block"
-    : "none";
-}
-
-// --- EFECTO CONFETI ---
+// --- MEJORA: EFECTO DE ÉXITO (CONFETI) ---
 function launchSuccess() {
   confetti({
     particleCount: 150,
@@ -244,35 +200,30 @@ function launchSuccess() {
   });
 }
 
-// 4. WhatsApp Final
+// 4. WhatsApp Final (Actualizado con Confeti y Horario)
 function sendOrder() {
   const now = new Date();
   const hour = now.getHours();
 
   if (hour < 19 || hour >= 23) {
-    alert("Lo sentimos, el local está cerrado.");
+    alert("Lo sentimos, el local está cerrado. Consulta nuestros horarios.");
     return;
   }
 
-  const deliveryType = document.querySelector(
-    'input[name="delivery-type"]:checked',
-  ).value;
-  const address = document.getElementById("order-address").value;
-  const notes = document.getElementById("order-notes").value;
-
-  if (deliveryType === "A domicilio" && !address) {
-    alert("Por favor, ingresa tu dirección de entrega.");
-    return;
-  }
-
-  launchSuccess();
+  launchSuccess(); 
 
   setTimeout(() => {
     const phone = "529991505132";
+    const deliveryType = document.querySelector(
+      'input[name="delivery-type"]:checked',
+    ).value;
+    const address = document.getElementById("order-address").value;
+    const notes = document.getElementById("order-notes").value;
+
     let msg = `*NUEVO PEDIDO: ${deliveryType.toUpperCase()}* 🔥\n`;
     msg += "--------------------------\n";
     cart.forEach((i) => {
-      msg += `• *${i.item}*\n  _${i.details}_\n  $${i.price}\n\n`;
+      msg += `• *${i.item}*\n  _${i.details}_\n  $${i.price}\n\n`;
     });
     if (deliveryType === "A domicilio") msg += `📍 *Dirección:* ${address}\n`;
     if (notes) msg += `📝 *Notas:* ${notes}\n`;
@@ -283,6 +234,12 @@ function sendOrder() {
       "_blank",
     );
   }, 800);
+}
+
+function toggleAddressField(show) {
+  document.getElementById("address-section").style.display = show
+    ? "block"
+    : "none";
 }
 
 // 5. Otros
@@ -303,19 +260,13 @@ function closeHours() {
   document.getElementById("modal-hours").style.display = "none";
 }
 
-// Ejecutar verificación al cargar
-window.onload = checkStoreStatus;
-
 window.onclick = function (event) {
   const mC = document.getElementById("modal-custom");
   const mH = document.getElementById("modal-hours");
   const mK = document.getElementById("modal-checkout");
-  const mLock = document.getElementById("modal-closed-lock");
   const lb = document.getElementById("lightbox");
-
   if (event.target == mC) closeModal();
   if (event.target == mH) closeHours();
   if (event.target == mK) closeCheckout();
-  if (event.target == mLock) closeClosedModal();
   if (event.target == lb) closeLightbox();
 };

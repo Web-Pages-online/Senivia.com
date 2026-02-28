@@ -31,21 +31,6 @@ body {
   animation: fadeIn 0.8s ease-in-out;
 }
 
-/* CLASE DE BLOQUEO DE MENÚ */
-.app-container.menu-blocked .add-btn,
-.app-container.menu-blocked .card-info,
-.app-container.menu-blocked .extra-item {
-  cursor: not-allowed !important;
-  filter: grayscale(1);
-  pointer-events: none; /* Bloquea clics en botones y textos */
-}
-
-/* Permitir que la imagen se vea y use el lightbox aún cerrado */
-.app-container.menu-blocked .card-img {
-  pointer-events: auto;
-  filter: grayscale(0.4);
-}
-
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -350,56 +335,6 @@ section {
   transform: scale(1.1);
 }
 
-/* --- SELECTOR DE ENTREGA (NUEVO) --- */
-.method-option {
-  flex: 1;
-  cursor: pointer;
-}
-
-.method-option input {
-  display: none;
-}
-
-.method-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  padding: 15px;
-  border: 2px solid #eee;
-  border-radius: 15px;
-  transition: 0.3s;
-  color: #888;
-}
-
-.method-box i {
-  font-size: 20px;
-}
-
-.method-box span {
-  font-size: 12px;
-  font-weight: 700;
-}
-
-.method-option input:checked + .method-box {
-  border-color: var(--brown-dark);
-  color: var(--brown-dark);
-  background: #fdf5f2;
-}
-
-/* --- CAMPO DE NOTAS Y DIRECCIÓN (NUEVO) --- */
-#order-notes,
-#order-address {
-  width: 100%;
-  border-radius: 12px;
-  border: 1px solid #eee;
-  padding: 10px;
-  resize: none;
-  font-family: inherit;
-  font-size: 13px;
-  outline: none;
-}
-
 /* --- MARKETING SUGERIDO --- */
 .marketing-section {
   margin: 15px 0 25px;
@@ -596,8 +531,7 @@ section {
   font-size: 40px;
   cursor: pointer;
 }
-
 .whatsapp-final-btn.closed {
-  background-color: #999 !important;
-  cursor: pointer;
+    background-color: #999 !important;
+    cursor: pointer; 
 }

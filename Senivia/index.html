@@ -369,6 +369,59 @@
       </div>
     </div>
 
+    <div class="delivery-methods" style="margin-bottom: 20px">
+      <p style="font-weight: 800; font-size: 14px; margin-bottom: 10px">
+        ¿Cómo recibirás tu pedido?
+      </p>
+      <div style="display: flex; gap: 10px">
+        <label class="method-option">
+          <input
+            type="radio"
+            name="delivery-type"
+            value="Para Recoger"
+            checked
+            onclick="toggleAddressField(false)"
+          />
+          <div class="method-box">
+            <i class="fa-solid fa-store"></i>
+            <span>Pasaré por él</span>
+          </div>
+        </label>
+        <label class="method-option">
+          <input
+            type="radio"
+            name="delivery-type"
+            value="A domicilio"
+            onclick="toggleAddressField(true)"
+          />
+          <div class="method-box">
+            <i class="fa-solid fa-motorcycle"></i>
+            <span>A domicilio</span>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <div id="address-section" style="display: none; margin-bottom: 15px">
+      <p style="font-weight: 800; font-size: 14px; margin-bottom: 8px">
+        Dirección de entrega:
+      </p>
+      <textarea
+        id="order-address"
+        placeholder="Calle, número, colonia y referencias..."
+        style="
+          width: 100%;
+          height: 50px;
+          border-radius: 12px;
+          border: 1px solid #eee;
+          padding: 10px;
+          resize: none;
+          font-family: inherit;
+          font-size: 13px;
+        "
+      ></textarea>
+    </div>
+
     <div id="modal-checkout" class="modal">
       <div class="modal-content custom-sheet checkout-sheet">
         <div class="sheet-header">
@@ -377,59 +430,6 @@
           <p class="modal-subtitle">Revisa tu orden antes de enviar</p>
         </div>
         <div id="checkout-list" class="checkout-container"></div>
-
-        <div class="delivery-methods" style="margin-bottom: 20px">
-          <p style="font-weight: 800; font-size: 14px; margin-bottom: 10px">
-            ¿Cómo recibirás tu pedido?
-          </p>
-          <div style="display: flex; gap: 10px">
-            <label class="method-option">
-              <input
-                type="radio"
-                name="delivery-type"
-                value="Para Recoger"
-                checked
-                onclick="toggleAddressField(false)"
-              />
-              <div class="method-box">
-                <i class="fa-solid fa-store"></i>
-                <span>Pasaré por él</span>
-              </div>
-            </label>
-            <label class="method-option">
-              <input
-                type="radio"
-                name="delivery-type"
-                value="A domicilio"
-                onclick="toggleAddressField(true)"
-              />
-              <div class="method-box">
-                <i class="fa-solid fa-motorcycle"></i>
-                <span>A domicilio</span>
-              </div>
-            </label>
-          </div>
-        </div>
-
-        <div id="address-section" style="display: none; margin-bottom: 15px">
-          <p style="font-weight: 800; font-size: 14px; margin-bottom: 8px">
-            Dirección de entrega:
-          </p>
-          <textarea
-            id="order-address"
-            placeholder="Calle, número, colonia y referencias..."
-            style="
-              width: 100%;
-              height: 50px;
-              border-radius: 12px;
-              border: 1px solid #eee;
-              padding: 10px;
-              resize: none;
-              font-family: inherit;
-              font-size: 13px;
-            "
-          ></textarea>
-        </div>
 
         <div class="notes-section" style="margin: 15px 0">
           <p style="font-weight: 800; font-size: 14px; margin-bottom: 8px">
@@ -465,108 +465,6 @@
             Seguir comprando
           </button>
         </div>
-      </div>
-    </div>
-
-    <div
-      id="modal-closed-lock"
-      class="modal"
-      style="
-        display: none;
-        align-items: center;
-        background: rgba(0, 0, 0, 0.85);
-      "
-    >
-      <div
-        class="modal-content"
-        style="
-          text-align: center;
-          border-radius: 24px;
-          width: 90%;
-          max-width: 400px;
-          margin: auto;
-          padding: 35px 25px;
-        "
-      >
-        <div style="color: #ff5252; font-size: 60px; margin-bottom: 20px">
-          <i class="fa-duotone fa-regular fa-shop-slash"></i>
-        </div>
-        <h2
-          style="
-            color: var(--brown-dark);
-            margin-bottom: 10px;
-            font-weight: 800;
-          "
-        >
-          ¡Volvemos pronto!
-        </h2>
-        <p
-          style="
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 25px;
-            line-height: 1.5;
-          "
-        >
-          Los pedidos están deshabilitados en este momento. Solo podrás ver el
-          menú.
-        </p>
-        <div
-          style="
-            background: #f8f9fa;
-            padding: 18px;
-            border-radius: 16px;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-          "
-        >
-          <span
-            class="material-symbols-rounded"
-            style="color: var(--brown-dark)"
-            >schedule</span
-          >
-          <p style="font-weight: 800; margin: 0; color: var(--text)">
-            Abrimos hoy a las 7:00 PM
-          </p>
-        </div>
-        <button
-          class="confirm-btn"
-          onclick="closeClosedModal()"
-          style="
-            background: #f0f0f0;
-            color: #333;
-            border: none;
-            width: 100%;
-            padding: 15px;
-            border-radius: 15px;
-            font-weight: 700;
-            cursor: pointer;
-          "
-        >
-          Ver Menú
-        </button>
-        <button
-          class="cancel-btn"
-          onclick="
-            openHours();
-            closeClosedModal();
-          "
-          style="
-            margin-top: 20px;
-            background: none;
-            border: none;
-            color: #888;
-            text-decoration: underline;
-            font-size: 13px;
-            cursor: pointer;
-            width: 100%;
-          "
-        >
-          Ver horarios completos
-        </button>
       </div>
     </div>
 
