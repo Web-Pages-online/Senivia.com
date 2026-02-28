@@ -1,0 +1,189 @@
+:root {
+    --brown-dark: #6d4c41;
+    --brown-light: #d7ccc8;
+    --green-main: #2d6a4f;
+    --green-light: #d8f3dc;
+    --white: #ffffff;
+    --text: #1a1a1a;
+    --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f4f1ea;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.app-container { width: 100%; max-width: 500px; padding-bottom: 120px; }
+
+header {
+    padding: 40px 20px;
+    text-align: center;
+    background: var(--brown-dark);
+    color: white;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
+/* Agrega esto al inicio o final de tu style.css */
+
+.top-nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    max-width: 500px; /* Igual que tu contenedor */
+    z-index: 1500;
+    padding: 15px 20px;
+}
+
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-icons {
+    display: flex;
+    gap: 12px;
+}
+
+.nav-btn {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.nav-btn:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* Estilos para el Modal de Horarios */
+.modal-hours-style {
+    border-radius: 30px 30px 0 0;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.close-x {
+    background: #f0f0f0;
+    border: none;
+    font-size: 24px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.hours-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 20px;
+}
+
+.hour-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 15px;
+    background: #f9f9f9;
+    border-radius: 12px;
+    font-size: 14px;
+}
+
+.hour-row.closed {
+    color: #d32f2f;
+    background: #fff5f5;
+}
+
+.hour-row b {
+    font-weight: 700;
+}
+
+.logo-circle {
+    width: 100px; height: 100px; background: white; border-radius: 50%;
+    margin: 0 auto 15px; display: flex; align-items: center; justify-content: center;
+    overflow: hidden; border: 3px solid var(--brown-light);
+}
+.logo-circle img { width: 80%; object-fit: contain; }
+
+section { padding: 25px 15px 10px; }
+.section-title { font-size: 20px; font-weight: 800; margin-bottom: 20px; padding-bottom: 5px; border-bottom: 3px solid; display: inline-block; }
+.title-burguer { color: var(--brown-dark); border-color: var(--brown-dark); }
+.title-asado { color: var(--green-main); border-color: var(--green-main); }
+
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.card {
+    background: white; border-radius: 20px; padding: 15px; box-shadow: var(--shadow);
+    display: flex; flex-direction: column; justify-content: space-between; transition: 0.2s; border: 1px solid #eee; cursor: pointer;
+}
+.card:active { transform: scale(0.96); }
+.card h3 { font-size: 14px; margin: 0; font-weight: 700; color: #333; }
+.card p { font-size: 10px; color: #777; margin: 5px 0 12px; }
+
+.card-footer { display: flex; justify-content: space-between; align-items: center; }
+.price { font-weight: 800; font-size: 16px; color: var(--text); }
+
+.add-btn { border: none; width: 30px; height: 30px; border-radius: 8px; color: white; font-size: 18px; font-weight: bold; cursor: pointer; }
+.btn-burguer { background: var(--brown-dark); }
+.btn-asado { background: var(--green-main); }
+
+.extra-item { display: flex; justify-content: space-between; margin-bottom: 12px; align-items: center; cursor: pointer; }
+
+/* MODAL STYLES */
+.modal {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: flex-end; z-index: 2000;
+}
+.modal-content {
+    background: white; width: 100%; max-width: 500px; padding: 30px;
+    border-radius: 30px 30px 0 0; animation: slideUp 0.3s ease-out;
+}
+@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+
+#modal-title { margin: 0; font-size: 22px; color: var(--brown-dark); }
+.modal-subtitle { font-size: 13px; color: #777; margin-bottom: 20px; }
+
+.ingredient-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 12px 0; border-bottom: 1px solid #eee;
+}
+.ingredient-row input { width: 22px; height: 22px; accent-color: var(--green-main); }
+
+.confirm-btn {
+    background: var(--brown-dark); color: white; border: none; width: 100%;
+    padding: 15px; border-radius: 15px; font-weight: 700; margin-top: 20px; cursor: pointer;
+}
+.cancel-btn { background: none; border: none; width: 100%; margin-top: 10px; color: #999; cursor: pointer; }
+
+/* CART BAR */
+#cart-bar {
+    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+    width: 90%; max-width: 420px; background: #1a1a1a; padding: 15px 20px;
+    border-radius: 50px; display: none; justify-content: space-between; align-items: center; color: white; z-index: 1000;
+}
+.count-badge { background: #25D366; padding: 4px 12px; border-radius: 15px; font-weight: 800; }
+.whatsapp-btn { background: #25D366; color: white; text-decoration: none; padding: 10px 20px; border-radius: 25px; font-weight: 700; }
+
