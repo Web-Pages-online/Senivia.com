@@ -25,10 +25,8 @@
         <div class="logo-circle">
           <img src="Senivia.png" alt="Logo Senivia" />
         </div>
-
         <h1>SENIVIA</h1>
         <p>"Donde el fuego se vuelve sabor"</p>
-
         <nav class="nav-header-container">
           <a
             href="https://maps.app.goo.gl/EeYADAYWjaHBzVqx6"
@@ -37,13 +35,11 @@
           >
             <i class="fa-duotone fa-regular fa-location-dot"></i>
           </a>
-
           <button class="nav-icon-btn" onclick="openHours()">
             <span class="material-symbols-rounded">schedule</span>
           </button>
-
           <a
-            href="https://wa.me/9991505132?text=Hola%20Senivia,%20me%20gustaría%20hacer%20un%20pedido."
+            href="https://wa.me/529991505132"
             target="_blank"
             class="nav-icon-btn"
           >
@@ -65,14 +61,19 @@
             <div class="card-info">
               <div
                 onclick="
-                  openCustomizer('Clásica', 75, [
-                    'Jamón',
-                    'Queso',
-                    'Tocino',
-                    'Cebolla',
-                    'Tomate',
-                    'Lechuga',
-                  ])
+                  openCustomizer(
+                    'Clásica',
+                    75,
+                    [
+                      'Jamón',
+                      'Queso',
+                      'Tocino',
+                      'Cebolla',
+                      'Tomate',
+                      'Lechuga',
+                    ],
+                    'hamburguesa',
+                  )
                 "
               >
                 <h3>Clásica</h3>
@@ -83,14 +84,19 @@
                 <button
                   class="add-btn btn-burguer"
                   onclick="
-                    openCustomizer('Clásica', 75, [
-                      'Jamón',
-                      'Queso',
-                      'Tocino',
-                      'Cebolla',
-                      'Tomate',
-                      'Lechuga',
-                    ])
+                    openCustomizer(
+                      'Clásica',
+                      75,
+                      [
+                        'Jamón',
+                        'Queso',
+                        'Tocino',
+                        'Cebolla',
+                        'Tomate',
+                        'Lechuga',
+                      ],
+                      'hamburguesa',
+                    )
                   "
                 >
                   +
@@ -109,13 +115,12 @@
             <div class="card-info">
               <div
                 onclick="
-                  openCustomizer('Champiñones', 90, [
+                  openCustomizer(
                     'Champiñones',
-                    'Jamón',
-                    'Queso',
-                    'Tocino',
-                    'Verdura',
-                  ])
+                    90,
+                    ['Champiñones', 'Jamón', 'Queso', 'Tocino', 'Verdura'],
+                    'hamburguesa',
+                  )
                 "
               >
                 <h3>Champiñones</h3>
@@ -126,13 +131,12 @@
                 <button
                   class="add-btn btn-burguer"
                   onclick="
-                    openCustomizer('Champiñones', 90, [
+                    openCustomizer(
                       'Champiñones',
-                      'Jamón',
-                      'Queso',
-                      'Tocino',
-                      'Verdura',
-                    ])
+                      90,
+                      ['Champiñones', 'Jamón', 'Queso', 'Tocino', 'Verdura'],
+                      'hamburguesa',
+                    )
                   "
                 >
                   +
@@ -151,13 +155,12 @@
             <div class="card-info">
               <div
                 onclick="
-                  openCustomizer('Hawaiana', 90, [
-                    'Piña',
-                    'Jamón',
-                    'Queso',
-                    'Tocino',
-                    'Verdura',
-                  ])
+                  openCustomizer(
+                    'Hawaiana',
+                    90,
+                    ['Piña', 'Jamón', 'Queso', 'Tocino', 'Verdura'],
+                    'hamburguesa',
+                  )
                 "
               >
                 <h3>Hawaiana</h3>
@@ -168,13 +171,12 @@
                 <button
                   class="add-btn btn-burguer"
                   onclick="
-                    openCustomizer('Hawaiana', 90, [
-                      'Piña',
-                      'Jamón',
-                      'Queso',
-                      'Tocino',
-                      'Verdura',
-                    ])
+                    openCustomizer(
+                      'Hawaiana',
+                      90,
+                      ['Piña', 'Jamón', 'Queso', 'Tocino', 'Verdura'],
+                      'hamburguesa',
+                    )
                   "
                 >
                   +
@@ -193,12 +195,12 @@
             <div class="card-info">
               <div
                 onclick="
-                  openCustomizer('Smash Burguer', 120, [
-                    'Doble carne',
-                    'Aderezo de la casa',
-                    'Queso',
-                    'Tocino',
-                  ])
+                  openCustomizer(
+                    'Smash Burguer',
+                    120,
+                    ['Doble carne', 'Aderezo de la casa', 'Queso', 'Tocino'],
+                    'hamburguesa',
+                  )
                 "
               >
                 <h3>Smash Burguer</h3>
@@ -209,12 +211,12 @@
                 <button
                   class="add-btn btn-burguer"
                   onclick="
-                    openCustomizer('Smash Burguer', 120, [
-                      'Doble carne',
-                      'Aderezo de la casa',
-                      'Queso',
-                      'Tocino',
-                    ])
+                    openCustomizer(
+                      'Smash Burguer',
+                      120,
+                      ['Doble carne', 'Aderezo de la casa', 'Queso', 'Tocino'],
+                      'hamburguesa',
+                    )
                   "
                 >
                   +
@@ -236,13 +238,32 @@
               alt="Tacos"
             />
             <div class="card-info">
-              <div onclick="add('Tacos', 23)">
+              <div
+                onclick="
+                  openCustomizer(
+                    'Tacos',
+                    23,
+                    ['Cebolla asada', 'Cilantro'],
+                    'taco',
+                  )
+                "
+              >
                 <h3>Tacos</h3>
                 <p>Tortilla y carne asada</p>
               </div>
               <div class="card-footer">
                 <span class="price">$23</span>
-                <button class="add-btn btn-asado" onclick="add('Tacos', 23)">
+                <button
+                  class="add-btn btn-asado"
+                  onclick="
+                    openCustomizer(
+                      'Tacos',
+                      23,
+                      ['Cebolla asada', 'Cilantro'],
+                      'taco',
+                    )
+                  "
+                >
                   +
                 </button>
               </div>
@@ -257,13 +278,32 @@
               alt="Gringa"
             />
             <div class="card-info">
-              <div onclick="add('Gringa', 28)">
+              <div
+                onclick="
+                  openCustomizer(
+                    'Gringa',
+                    28,
+                    ['Cebolla asada', 'Cilantro'],
+                    'taco',
+                  )
+                "
+              >
                 <h3>Gringa</h3>
                 <p>Tortilla de harina con queso y carne.</p>
               </div>
               <div class="card-footer">
                 <span class="price">$28</span>
-                <button class="add-btn btn-asado" onclick="add('Gringa', 28)">
+                <button
+                  class="add-btn btn-asado"
+                  onclick="
+                    openCustomizer(
+                      'Gringa',
+                      28,
+                      ['Cebolla asada', 'Cilantro'],
+                      'taco',
+                    )
+                  "
+                >
                   +
                 </button>
               </div>
@@ -304,19 +344,82 @@
         <div class="sheet-header">
           <div class="drag-handle"></div>
           <h2 id="modal-title">Personalizar</h2>
-          <p class="modal-subtitle">¿Quieres quitar algún ingrediente?</p>
+          <p class="modal-subtitle">¿Cómo lo prefieres?</p>
         </div>
         <div id="ingredients-list" class="ingredients-container"></div>
+
+        <div
+          id="extras-container"
+          class="ingredients-container"
+          style="border-top: 1px solid #eee; padding-top: 15px; display: none"
+        >
+          <p style="font-weight: 800; font-size: 14px; margin-bottom: 10px">
+            Complementos:
+          </p>
+          <div id="extras-list"></div>
+        </div>
+
         <div class="sheet-footer">
           <button class="confirm-btn" onclick="confirmCustomization()">
             <span>Agregar Pedido</span>
             <i class="fa-solid fa-cart-plus"></i>
           </button>
-          <button class="cancel-btn" onclick="closeModal()">
-            Tal vez luego
-          </button>
+          <button class="cancel-btn" onclick="closeModal()">Cancelar</button>
         </div>
       </div>
+    </div>
+
+    <div class="delivery-methods" style="margin-bottom: 20px">
+      <p style="font-weight: 800; font-size: 14px; margin-bottom: 10px">
+        ¿Cómo recibirás tu pedido?
+      </p>
+      <div style="display: flex; gap: 10px">
+        <label class="method-option">
+          <input
+            type="radio"
+            name="delivery-type"
+            value="Para Recoger"
+            checked
+            onclick="toggleAddressField(false)"
+          />
+          <div class="method-box">
+            <i class="fa-solid fa-store"></i>
+            <span>Pasaré por él</span>
+          </div>
+        </label>
+        <label class="method-option">
+          <input
+            type="radio"
+            name="delivery-type"
+            value="A domicilio"
+            onclick="toggleAddressField(true)"
+          />
+          <div class="method-box">
+            <i class="fa-solid fa-motorcycle"></i>
+            <span>A domicilio</span>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <div id="address-section" style="display: none; margin-bottom: 15px">
+      <p style="font-weight: 800; font-size: 14px; margin-bottom: 8px">
+        Dirección de entrega:
+      </p>
+      <textarea
+        id="order-address"
+        placeholder="Calle, número, colonia y referencias..."
+        style="
+          width: 100%;
+          height: 50px;
+          border-radius: 12px;
+          border: 1px solid #eee;
+          padding: 10px;
+          resize: none;
+          font-family: inherit;
+          font-size: 13px;
+        "
+      ></textarea>
     </div>
 
     <div id="modal-checkout" class="modal">
@@ -326,8 +429,27 @@
           <h2>Tu Pedido</h2>
           <p class="modal-subtitle">Revisa tu orden antes de enviar</p>
         </div>
-
         <div id="checkout-list" class="checkout-container"></div>
+
+        <div class="notes-section" style="margin: 15px 0">
+          <p style="font-weight: 800; font-size: 14px; margin-bottom: 8px">
+            Notas o Cambios:
+          </p>
+          <textarea
+            id="order-notes"
+            placeholder="Ej. Cambio de $500..."
+            style="
+              width: 100%;
+              height: 60px;
+              border-radius: 12px;
+              border: 1px solid #eee;
+              padding: 10px;
+              resize: none;
+              font-family: inherit;
+              font-size: 13px;
+            "
+          ></textarea>
+        </div>
 
         <div class="marketing-section">
           <p class="marketing-title">¿Se te antoja algo más? 🔥</p>
@@ -348,9 +470,7 @@
 
     <div id="modal-hours" class="modal">
       <div class="modal-content">
-        <div class="modal-header">
-          <h2>Horario</h2>
-        </div>
+        <div class="modal-header"><h2>Horario</h2></div>
         <div
           class="hours-container"
           style="
@@ -394,6 +514,7 @@
       <div class="whatsapp-btn">Ver Carrito</div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

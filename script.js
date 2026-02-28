@@ -2,7 +2,7 @@ let cart = [];
 let total = 0;
 let tempItem = null;
 
-// SUGERENCIAS PARA EL MARKETING
+// SUGERENCIAS DE MARKETING
 const recommendations = [
   { name: "Queso Fundido", price: 100 },
   { name: "Dedo de Queso", price: 120 },
@@ -10,30 +10,54 @@ const recommendations = [
   { name: "Refresco", price: 25 },
 ];
 
-// 1. Personalizador de Hamburguesas
-function openCustomizer(name, price, ingredients) {
-  tempItem = { name, price, ingredients };
+// ADEREZOS Y SALSAS POR TIPO
+const addonConfig = {
+  hamburguesa: ["Catsup", "Mayonesa", "Mostaza"],
+  taco: ["Salsa Roja", "Salsa Verde", "Cebolla picada", "Crema"],
+};
+
+// 1. Personalizador Inteligente
+function openCustomizer(name, price, ingredients, type = "general") {
+  tempItem = { name, price, ingredients, type };
   document.getElementById("modal-title").innerText = name;
 
   const list = document.getElementById("ingredients-list");
-  list.innerHTML = "";
+  list.innerHTML =
+    '<p style="font-weight:700; font-size:14px; margin-bottom:10px;">Ingredientes:</p>';
 
   ingredients.forEach((ing) => {
-    const div = document.createElement("div");
-    div.className = "ingredient-item";
-    div.onclick = function () {
-      const cb = this.querySelector("input");
-      cb.checked = !cb.checked;
-    };
-    div.innerHTML = `
-            <label>${ing}</label>
-            <input type="checkbox" checked value="${ing}" class="ing-checkbox" onclick="event.stopPropagation()">
-        `;
-    list.appendChild(div);
+    list.appendChild(createItemRow(ing, "ing-checkbox", true));
   });
+
+  const extrasContainer = document.getElementById("extras-container");
+  const extrasList = document.getElementById("extras-list");
+  extrasList.innerHTML = "";
+
+  if (addonConfig[type]) {
+    extrasContainer.style.display = "block";
+    addonConfig[type].forEach((extra) => {
+      extrasList.appendChild(createItemRow(extra, "extra-checkbox", false));
+    });
+  } else {
+    extrasContainer.style.display = "none";
+  }
 
   document.getElementById("modal-custom").style.display = "flex";
   document.body.style.overflow = "hidden";
+}
+
+function createItemRow(text, className, isChecked) {
+  const div = document.createElement("div");
+  div.className = "ingredient-item";
+  div.onclick = function () {
+    const cb = this.querySelector("input");
+    cb.checked = !cb.checked;
+  };
+  div.innerHTML = `
+        <label>${text}</label>
+        <input type="checkbox" ${isChecked ? "checked" : ""} value="${text}" class="${className}" onclick="event.stopPropagation()">
+    `;
+  return div;
 }
 
 function closeModal() {
@@ -42,16 +66,24 @@ function closeModal() {
 }
 
 function confirmCustomization() {
-  const checkboxes = document.querySelectorAll(".ing-checkbox");
+  const ingCB = document.querySelectorAll(".ing-checkbox");
   let removed = [];
-  checkboxes.forEach((cb) => {
+  ingCB.forEach((cb) => {
     if (!cb.checked) removed.push(cb.value);
   });
 
-  let finalName = tempItem.name;
-  let details = removed.length > 0 ? `(SIN: ${removed.join(", ")})` : "";
+  const extraCB = document.querySelectorAll(".extra-checkbox");
+  let selectedExtras = [];
+  extraCB.forEach((cb) => {
+    if (cb.checked) selectedExtras.push(cb.value);
+  });
 
-  add(finalName, tempItem.price, details);
+  let details = "";
+  if (removed.length > 0) details += `SIN: ${removed.join(", ")}. `;
+  if (selectedExtras.length > 0)
+    details += `CON: ${selectedExtras.join(", ")}.`;
+
+  add(tempItem.name, tempItem.price, details);
   closeModal();
 }
 
@@ -65,7 +97,6 @@ function add(item, price, details = "") {
 function removeItem(index) {
   total -= cart[index].price;
   cart.splice(index, 1);
-
   if (cart.length === 0) {
     closeCheckout();
     document.getElementById("cart-bar").style.display = "none";
@@ -84,10 +115,11 @@ function updateCartUI() {
   }
 }
 
-// 3. Sistema de Checkout y Marketing
+// 3. Checkout y Marketing
 function openCheckout() {
   renderCheckout();
   renderMarketing();
+  checkStoreStatus();
   document.getElementById("modal-checkout").style.display = "flex";
   document.body.style.overflow = "hidden";
 }
@@ -100,7 +132,6 @@ function closeCheckout() {
 function renderCheckout() {
   const list = document.getElementById("checkout-list");
   list.innerHTML = "";
-
   cart.forEach((product, index) => {
     const div = document.createElement("div");
     div.className = "checkout-item";
@@ -120,12 +151,9 @@ function renderCheckout() {
 function renderMarketing() {
   const list = document.getElementById("marketing-list");
   list.innerHTML = "";
-
-  // Filtramos para no sugerir algo que ya está en el carrito
   const suggestions = recommendations.filter(
     (r) => !cart.some((c) => c.item === r.name),
   );
-
   suggestions.forEach((item) => {
     const div = document.createElement("div");
     div.className = "marketing-card";
@@ -138,18 +166,80 @@ function renderMarketing() {
   });
 }
 
-// 4. WhatsApp
-function sendOrder() {
-  const phone = "529991505132";
-  let msg = "*PEDIDO SENIVIA* 🔥\n--------------------------\n";
-  cart.forEach((i, idx) => {
-    msg += `• *${i.item}* ${i.details} - $${i.price}\n`;
+// --- MEJORA: VERIFICAR SI ESTÁ ABIERTO ---
+function checkStoreStatus() {
+  const now = new Date();
+  const hour = now.getHours();
+  const btnContainer = document.querySelector(".whatsapp-final-btn");
+  const btnText = btnContainer.querySelector("span");
+
+  // Horario: 19 (7 PM) a 23 (11 PM)
+  if (hour >= 19 && hour < 23) {
+    btnText.innerText = "Confirmar en WhatsApp";
+    btnContainer.style.background = "#25d366";
+    btnContainer.onclick = sendOrder;
+    return true;
+  } else {
+    btnText.innerText = "Local Cerrado (Ver Horarios)";
+    btnContainer.style.background = "#999";
+    btnContainer.onclick = function () {
+      closeCheckout();
+      openHours();
+    };
+    return false;
+  }
+}
+
+// --- MEJORA: EFECTO DE ÉXITO (CONFETI) ---
+function launchSuccess() {
+  confetti({
+    particleCount: 150,
+    spread: 70,
+    origin: { y: 0.6 },
+    colors: ["#6d4c41", "#2d6a4f", "#25d366"],
   });
-  msg += `\n--------------------------\n*TOTAL A PAGAR: $${total}* 💰`;
-  window.open(
-    `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`,
-    "_blank",
-  );
+}
+
+// 4. WhatsApp Final (Actualizado con Confeti y Horario)
+function sendOrder() {
+  const now = new Date();
+  const hour = now.getHours();
+
+  if (hour < 19 || hour >= 23) {
+    alert("Lo sentimos, el local está cerrado. Consulta nuestros horarios.");
+    return;
+  }
+
+  launchSuccess(); 
+
+  setTimeout(() => {
+    const phone = "529991505132";
+    const deliveryType = document.querySelector(
+      'input[name="delivery-type"]:checked',
+    ).value;
+    const address = document.getElementById("order-address").value;
+    const notes = document.getElementById("order-notes").value;
+
+    let msg = `*NUEVO PEDIDO: ${deliveryType.toUpperCase()}* 🔥\n`;
+    msg += "--------------------------\n";
+    cart.forEach((i) => {
+      msg += `• *${i.item}*\n  _${i.details}_\n  $${i.price}\n\n`;
+    });
+    if (deliveryType === "A domicilio") msg += `📍 *Dirección:* ${address}\n`;
+    if (notes) msg += `📝 *Notas:* ${notes}\n`;
+    msg += `--------------------------\n*TOTAL: $${total}* 💰`;
+
+    window.open(
+      `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`,
+      "_blank",
+    );
+  }, 800);
+}
+
+function toggleAddressField(show) {
+  document.getElementById("address-section").style.display = show
+    ? "block"
+    : "none";
 }
 
 // 5. Otros
@@ -159,12 +249,10 @@ function openLightbox(src) {
   lb.style.display = "flex";
   document.body.style.overflow = "hidden";
 }
-
 function closeLightbox() {
   document.getElementById("lightbox").style.display = "none";
   document.body.style.overflow = "auto";
 }
-
 function openHours() {
   document.getElementById("modal-hours").style.display = "flex";
 }
@@ -177,7 +265,6 @@ window.onclick = function (event) {
   const mH = document.getElementById("modal-hours");
   const mK = document.getElementById("modal-checkout");
   const lb = document.getElementById("lightbox");
-
   if (event.target == mC) closeModal();
   if (event.target == mH) closeHours();
   if (event.target == mK) closeCheckout();

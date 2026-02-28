@@ -36,13 +36,13 @@ body {
     opacity: 0;
     transform: translateY(10px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
+/* --- HEADER --- */
 header {
   display: flex;
   flex-direction: column;
@@ -89,6 +89,7 @@ header p {
   object-fit: cover;
 }
 
+/* --- NAVEGACIÓN --- */
 .nav-header-container {
   display: flex;
   justify-content: center;
@@ -118,6 +119,7 @@ header p {
   transform: translateY(-3px) scale(1.05);
 }
 
+/* --- GRID Y CARDS --- */
 section {
   padding: 25px 15px 10px;
 }
@@ -135,7 +137,6 @@ section {
   color: var(--brown-dark);
   border-color: var(--brown-dark);
 }
-
 .title-asado {
   color: var(--green-main);
   border-color: var(--green-main);
@@ -229,7 +230,6 @@ section {
 .btn-burguer {
   background: var(--brown-dark);
 }
-
 .btn-asado {
   background: var(--green-main);
 }
@@ -246,7 +246,7 @@ section {
   cursor: pointer;
 }
 
-/* MODALES SHEET */
+/* --- SISTEMA DE MODALES SHEET --- */
 .modal {
   position: fixed;
   top: 0;
@@ -275,7 +275,6 @@ section {
   from {
     transform: translateY(100%);
   }
-
   to {
     transform: translateY(0);
   }
@@ -289,9 +288,16 @@ section {
   margin: 0 auto 15px;
 }
 
-/* CHECKOUT STYLES */
+.sheet-header h2 {
+  margin: 0;
+  font-size: 24px;
+  color: var(--brown-dark);
+  font-weight: 800;
+}
+
+/* --- CHECKOUT Y CRUD --- */
 .checkout-container {
-  max-height: 40vh;
+  max-height: 35vh;
   overflow-y: auto;
   margin-bottom: 20px;
 }
@@ -308,11 +314,11 @@ section {
   font-size: 14px;
   color: var(--text);
 }
-
 .checkout-item-info p {
   font-size: 11px;
   color: #888;
   margin: 2px 0 0;
+  line-height: 1.3;
 }
 
 .remove-btn {
@@ -321,31 +327,40 @@ section {
   border: none;
   cursor: pointer;
   font-size: 18px;
+  padding: 5px;
+  transition: 0.2s;
 }
 
-/* MARKETING */
+.remove-btn:hover {
+  transform: scale(1.1);
+}
+
+/* --- MARKETING SUGERIDO --- */
 .marketing-section {
   margin: 15px 0 25px;
 }
-
 .marketing-title {
   font-weight: 800;
   font-size: 14px;
   margin-bottom: 10px;
+  color: var(--brown-dark);
 }
-
 .marketing-grid {
   display: flex;
   gap: 10px;
   overflow-x: auto;
   padding-bottom: 10px;
+  scrollbar-width: none;
+}
+.marketing-grid::-webkit-scrollbar {
+  display: none;
 }
 
 .marketing-card {
-  min-width: 120px;
+  min-width: 130px;
   background: #fdfdfd;
   border: 1px solid #eee;
-  padding: 10px;
+  padding: 12px;
   border-radius: 15px;
   text-align: center;
 }
@@ -353,24 +368,28 @@ section {
 .marketing-card b {
   display: block;
   font-size: 12px;
-  margin: 5px 0;
+  margin-bottom: 4px;
+}
+.marketing-card span {
+  font-size: 11px;
+  color: #666;
+  font-weight: 700;
 }
 
 .marketing-card .mini-add {
   background: var(--green-main);
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   font-size: 10px;
-  padding: 4px 8px;
-  font-weight: 700;
+  padding: 5px 10px;
+  font-weight: 800;
+  margin-top: 8px;
+  width: 100%;
+  cursor: pointer;
 }
 
-.whatsapp-final-btn {
-  background: #25d366 !important;
-}
-
-/* ELEMENTOS COMUNES */
+/* --- ELEMENTOS COMUNES --- */
 .ingredients-container {
   margin: 25px 0;
   display: flex;
@@ -386,6 +405,11 @@ section {
   background: #f8f9fa;
   border-radius: 18px;
   cursor: pointer;
+  transition: 0.2s;
+}
+
+.ingredient-item:active {
+  background: #f0f0f0;
 }
 
 .ingredient-item input {
@@ -410,6 +434,10 @@ section {
   cursor: pointer;
 }
 
+.whatsapp-final-btn {
+  background: #25d366 !important;
+}
+
 .cancel-btn {
   background: transparent;
   color: #888;
@@ -420,6 +448,7 @@ section {
   cursor: pointer;
 }
 
+/* --- BARRA INFERIOR (CART BAR) --- */
 #cart-bar {
   position: fixed;
   bottom: 30px;
@@ -437,6 +466,11 @@ section {
   z-index: 1000;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
   cursor: pointer;
+  transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#cart-bar:active {
+  transform: translateX(-50%) scale(0.95);
 }
 
 .count-badge {
@@ -454,6 +488,7 @@ section {
   font-weight: 700;
 }
 
+/* --- LIGHTBOX Y OTROS --- */
 .lightbox {
   display: none;
   position: fixed;
@@ -482,7 +517,6 @@ section {
     transform: scale(0.8);
     opacity: 0;
   }
-
   to {
     transform: scale(1);
     opacity: 1;
@@ -496,4 +530,8 @@ section {
   color: white;
   font-size: 40px;
   cursor: pointer;
+}
+.whatsapp-final-btn.closed {
+    background-color: #999 !important;
+    cursor: pointer; 
 }
