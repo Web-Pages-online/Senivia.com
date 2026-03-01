@@ -1,0 +1,1133 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Senivia | Menú</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.2/css/all.css" />
+
+  <link rel="icon" type="image/x-icon" href="Senivia.ico" />
+
+  <link rel="apple-touch-icon" href="Senivia.png" />
+
+  <meta name="theme-color" content="#6d4c41" />
+
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Senivia" />
+
+  <!-- JS para Lluvia de Confeti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <!-- LIBRERÍAS DE MAPAS (LEAFLET.JS) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+</head>
+
+<body>
+  <!-- Pantalla de Carga (Splash Screen) -->
+  <div id="splash-screen">
+    <div class="splash-logo-container">
+      <img src="Senivia.png" alt="Cargando Senivia" />
+    </div>
+    <div class="splash-loader"></div>
+  </div>
+
+  <!-- Patrón de Fondo Dinámico -->
+  <div id="bg-pattern" class="bg-pattern" aria-hidden="true"></div>
+
+  <div class="app-container">
+    <header>
+      <div class="logo-circle">
+        <img src="Senivia.png" alt="Logo Senivia" />
+      </div>
+      <h1>SENIVIA</h1>
+      <p>"Donde el fuego se vuelve sabor"</p>
+      <nav class="nav-header-container">
+        <a href="https://maps.app.goo.gl/EeYADAYWjaHBzVqx6" target="_blank" class="nav-icon-btn">
+          <i class="fa-solid fa-location-dot"></i>
+        </a>
+        <button class="nav-icon-btn" onclick="openHours()">
+          <span class="material-symbols-rounded">schedule</span>
+        </button>
+        <a href="https://wa.me/529991505132?text=%C2%A1Hola%20Senivia!%20Me%20gustar%C3%ADa%20hacer%20un%20pedido.%20%F0%9F%94%A5"
+          target="_blank" class="nav-icon-btn">
+          <i class="fa-brands fa-whatsapp"></i>
+        </a>
+      </nav>
+    </header>
+
+    <section>
+      <div style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 25px;">
+        <div class="section-title title-burguer" style="margin-bottom: 8px;">Hamburguesas</div>
+        <div
+          style="font-size: 13px; color: var(--accent-orange); font-weight: 700; background: rgba(239, 68, 68, 0.1); padding: 6px 14px; border-radius: 20px; display: flex; align-items: center; gap: 8px;">
+          <i class="fa-solid fa-french-fries"></i> Todas incluyen papas fritas
+        </div>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <span class="badge-popular"><i class="fa-solid fa-fire"></i> Lo más pedido</span>
+          <img
+            src="https://scontent.fmid6-1.fna.fbcdn.net/v/t39.30808-6/644500847_122168392964923353_1801215572619277654_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=106&ccb=1-7&_nc_sid=7b2446&_nc_ohc=uPA4VijvOu0Q7kNvwGDRi_3&_nc_oc=AdkpkXFzD1pgYDT1BEOlzrtDLZvo7m2aheXaCjt9h2K1f7D_x29ChndX8zwosPiwxaxlp7prMvZnZjkLrA9AZVxj&_nc_zt=23&_nc_ht=scontent.fmid6-1.fna&_nc_gid=4qpkCkDq3Jsx5Vrjx82hsw&_nc_ss=8&oh=00_AftGksyO7CW5vcW0vdIeLGuwHIPfjffcvS-nG6zifV4eNg&oe=69A9049A"
+            class="card-img" onclick="openLightbox(this.src)" alt="Hamburguesa Clásica" />
+          <div class="card-info">
+            <div onclick="
+                  openCustomizer(
+                    'Hamburguesa Clásica',
+                    75,
+                    [
+                      'Jamón',
+                      'Queso',
+                      'Tocino',
+                      'Cebolla',
+                      'Tomate',
+                      'Lechuga',
+                    ],
+                    'hamburguesa',
+                  )
+                ">
+              <h3>Clásica</h3>
+              <p>Jamón, queso, tocino, cebolla, tomate y lechuga.</p>
+              <div class="includes-fries-tag"><i class="fa-solid fa-french-fries"></i> Incluye papas fritas</div>
+            </div>
+            <div class="card-footer">
+              <span class="price">$75</span>
+              <button class="add-btn btn-burguer" onclick="
+                    openCustomizer(
+                      'Hamburguesa Clásica',
+                      75,
+                      [
+                        'Jamón',
+                        'Queso',
+                        'Tocino',
+                        'Cebolla',
+                        'Tomate',
+                        'Lechuga',
+                      ],
+                      'hamburguesa',
+                    )
+                  ">
+                +
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <img src="https://zedinaalimentos.com/wp-content/uploads/2024/07/Burguer-con-Queso-y-Champi.png"
+            class="card-img" onclick="openLightbox(this.src)" alt="Hamburguesa Champiñones" />
+          <div class="card-info">
+            <div onclick="
+                  openCustomizer(
+                    'Hamburguesa Champiñones',
+                    90,
+                    ['Champiñones', 'Jamón', 'Queso', 'Tocino', 'Verdura'],
+                    'hamburguesa',
+                  )
+                ">
+              <h3>Champiñones</h3>
+              <p>Champiñones, jamón, queso, tocino, verdura.</p>
+              <div class="includes-fries-tag"><i class="fa-solid fa-french-fries"></i> Incluye papas fritas</div>
+            </div>
+            <div class="card-footer">
+              <span class="price">$90</span>
+              <button class="add-btn btn-burguer" onclick="
+                    openCustomizer(
+                      'Hamburguesa Champiñones',
+                      90,
+                      ['Champiñones', 'Jamón', 'Queso', 'Tocino', 'Verdura'],
+                      'hamburguesa',
+                    )
+                  ">
+                +
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <img
+            src="https://scontent.fmid3-1.fna.fbcdn.net/v/t39.30808-6/638415047_122167317440923353_9114184951406350730_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=100&ccb=1-7&_nc_sid=7b2446&_nc_ohc=BCJASsBWDEUQ7kNvwEqlXcR&_nc_oc=Adk2e64kajgX3Vk5tdXUaNLbRDwCU2AB-AN1KNIvhHY2dBlLP71eVMkPuW_XaemSnSotR79u5MtOatPJ73r8DaDn&_nc_zt=23&_nc_ht=scontent.fmid3-1.fna&_nc_gid=o39uNc_-HknVMwew-C2ZWg&_nc_ss=8&oh=00_Aft6aLdYJaDNiY6rlsRZGKiDa-mK6hnNKDcW4f58p8o-Ig&oe=69A931E2"
+            class="card-img" onclick="openLightbox(this.src)" alt="Hamburguesa Hawaiana" />
+          <div class="card-info">
+            <div onclick="
+                  openCustomizer(
+                    'Hamburguesa Hawaiana',
+                    90,
+                    ['Piña', 'Jamón', 'Queso', 'Tocino', 'Verdura'],
+                    'hamburguesa',
+                  )
+                ">
+              <h3>Hawaiana</h3>
+              <p>Piña, jamón, queso, tocino y verdura.</p>
+              <div class="includes-fries-tag"><i class="fa-solid fa-french-fries"></i> Incluye papas fritas</div>
+            </div>
+            <div class="card-footer">
+              <span class="price">$90</span>
+              <button class="add-btn btn-burguer" onclick="
+                    openCustomizer(
+                      'Hamburguesa Hawaiana',
+                      90,
+                      ['Piña', 'Jamón', 'Queso', 'Tocino', 'Verdura'],
+                      'hamburguesa',
+                    )
+                  ">
+                +
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <img
+            src="https://scontent.fmid3-1.fna.fbcdn.net/v/t39.30808-6/641420106_122168249072923353_946406040210160293_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=107&ccb=1-7&_nc_sid=7b2446&_nc_ohc=OhxF-ZToDtoQ7kNvwG4fvrW&_nc_oc=AdlHkosnnEMbuHPM-eKZ9G2asKkPQsH3NXra3Mmg4VaGMdXn6k9r2jdmwnpOH5SBp46c-m-eyQO83299X_Rz3LbZ&_nc_zt=23&_nc_ht=scontent.fmid3-1.fna&_nc_gid=cfAzM7pr8qqaunBU-6GhXA&_nc_ss=8&oh=00_AfthOQXHQUgTIGOZMR4vjDA7dfcH75IMa6BzPb4xZs6Hhg&oe=69A94739"
+            class="card-img" onclick="openLightbox(this.src)" alt="Hamburguesa Smash Burguer" />
+          <span class="badge-popular"><i class="fa-solid fa-fire"></i> Lo más pedido</span>
+          <div class="card-info">
+            <div onclick="
+                  openCustomizer(
+                    'Hamburguesa Smash Burguer',
+                    120,
+                    ['Doble carne', 'Aderezo de la casa', 'Queso', 'Tocino'],
+                    'hamburguesa',
+                  )
+                ">
+              <h3>Smash Burguer</h3>
+              <p>Doble carne, aderezo de la casa, queso, tocino.</p>
+              <div class="includes-fries-tag"><i class="fa-solid fa-french-fries"></i> Incluye papas fritas</div>
+            </div>
+            <div class="card-footer">
+              <span class="price">$120</span>
+              <button class="add-btn btn-burguer" onclick="
+                    openCustomizer(
+                      'Hamburguesa Smash Burguer',
+                      120,
+                      ['Doble carne', 'Aderezo de la casa', 'Queso', 'Tocino'],
+                      'hamburguesa',
+                    )
+                  ">
+                +
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <img
+            src="https://media.istockphoto.com/id/866925594/es/foto/hamburguesa-con-carne-de-res-tomate-cebolla-pepinillos-tocino-aros-de-cebolla-lechuga-salsa-de.jpg?s=612x612&w=0&k=20&c=k45VstwKrvPQOEsBglVVMRAGNNt9ANKzW8wJj2aosQE="
+            class="card-img" onclick="openLightbox(this.src)" alt="Hamburguesa Aros de Cebolla" />
+          <div class="card-info">
+            <div onclick="
+                  openCustomizer(
+                    'Hamburguesa Aros de Cebolla',
+                    120,
+                    ['Aros de Cebolla', 'Jamón', 'Queso', 'Tocino', 'Tomate', 'Lechuga', 'Cebolla'],
+                    'hamburguesa',
+                  )
+                ">
+              <h3>Aros de Cebolla</h3>
+              <p>Aros de Cebolla, jamón, queso, tocino, verdura.</p>
+              <div class="includes-fries-tag"><i class="fa-solid fa-french-fries"></i> Incluye papas fritas</div>
+            </div>
+            <div class="card-footer">
+              <span class="price">$120</span>
+              <button class="add-btn btn-burguer" onclick="
+                    openCustomizer(
+                      'Hamburguesa Aros de Cebolla',
+                      120,
+                      ['Aros de Cebolla', 'Jamón', 'Queso', 'Tocino', 'Tomate', 'Lechuga', 'Cebolla'],
+                      'hamburguesa',
+                    )
+                  ">
+                +
+              </button>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="card">
+          <img
+            src="https://scontent.fmid3-1.fna.fbcdn.net/v/t39.30808-6/640191515_122167317470923353_8974284891807081270_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=101&ccb=1-7&_nc_sid=7b2446&_nc_ohc=wIgH0xfGB7MQ7kNvwE7UMYw&_nc_oc=Admi_HdGvsCwkNl8OFr7d9NlWdRtKyTdW25247xI2Gn7WwPFLkz2_1jN12P-0GQGWrFC9-PTavqCwdRhs513yaO_&_nc_zt=23&_nc_ht=scontent.fmid3-1.fna&_nc_gid=AgAJeLhvQxOHU1nydd-3Mg&_nc_ss=8&oh=00_AfuEx_cOImrgkW4A7byF0u3Wljmv946t7s25JDAfR2czcg&oe=69A925B6"
+            class="card-img" onclick="openLightbox(this.src)" alt="Hamburguesa Dedos de Queso" />
+          <div class="card-info">
+            <div onclick="
+                  openCustomizer(
+                    'Hamburguesa Dedos de Queso',
+                    120,
+                    ['Dedos de Queso', 'Jamón', 'Queso', 'Tocino', 'Verdura'],
+                    'hamburguesa',
+                  )
+                ">
+              <h3>Dedos de Queso</h3>
+              <p>Dedos de Queso, jamón, queso, tocino, verdura.</p>
+              <div class="includes-fries-tag"><i class="fa-solid fa-french-fries"></i> Incluye papas fritas</div>
+            </div>
+            <div class="card-footer">
+              <span class="price">$120</span>
+              <button class="add-btn btn-burguer" onclick="
+                    openCustomizer(
+                      'Hamburguesa Dedos de Queso',
+                      120,
+                      ['Dedos de Queso', 'Jamón', 'Queso', 'Tocino', 'Verdura'],
+                      'hamburguesa',
+                    )
+                  ">
+                +
+              </button>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="card">
+          <img src="Tender.jpeg" class="card-img" onclick="openLightbox(this.src)" alt="Hamburguesa Tender" />
+          <div class="card-info">
+            <div onclick="
+                  openCustomizer(
+                    'Hamburguesa Tender',
+                    140,
+                    ['Tender', 'Jamón', 'Queso', 'Tocino', 'Cebolla', 'Tomate', 'Lechuga'],
+                    'hamburguesa',
+                  )
+                ">
+              <h3>Tender</h3>
+              <p>Tender, jamón, queso, tocino, cebolla, tomate y lechuga.</p>
+              <div class="includes-fries-tag"><i class="fa-solid fa-french-fries"></i> Incluye papas fritas</div>
+            </div>
+            <div class="card-footer">
+              <span class="price">$140</span>
+              <button class="add-btn btn-burguer" onclick="
+                    openCustomizer(
+                      'Hamburguesa Tender',
+                      140,
+                      ['Tender', 'Jamón', 'Queso', 'Tocino', 'Cebolla', 'Tomate', 'Lechuga'],
+                      'hamburguesa',
+                    )
+                  ">
+                +
+              </button>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="card">
+          <img
+            src="https://static.wixstatic.com/media/29cc8e_aaad1f9b690b4176a0cef213b971f787~mv2.jpg/v1/fill/w_1000,h_667,al_c,q_85,usm_0.66_1.00_0.01/29cc8e_aaad1f9b690b4176a0cef213b971f787~mv2.jpg"
+            class="card-img" onclick="openLightbox(this.src)" alt="Hamburguesa Doble Carne" />
+          <div class="card-info">
+            <div onclick="
+                  openCustomizer(
+                    'Hamburguesa Doble Carne',
+                    140,
+                    ['Doble Carne', 'Jamón', 'Queso', 'Tocino', 'Tomate', 'Lechuga', 'Cebolla'],
+                    'hamburguesa',
+                  )
+                ">
+              <h3>Doble Carne</h3>
+              <p>Doble carne, jamón, queso, tocino, tomate, lechuga y cebolla.</p>
+              <div class="includes-fries-tag"><i class="fa-solid fa-french-fries"></i> Incluye papas fritas</div>
+            </div>
+            <div class="card-footer">
+              <span class="price">$140</span>
+              <button class="add-btn btn-burguer" onclick="
+                    openCustomizer(
+                      'Hamburguesa Doble Carne',
+                      140,
+                      ['Doble Carne', 'Jamón', 'Queso', 'Tocino', 'Tomate', 'Lechuga', 'Cebolla'],
+                      'hamburguesa',
+                    )
+                  ">
+                +
+              </button>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="card">
+          <img
+            src="https://instagram.fmid3-1.fna.fbcdn.net/v/t51.82787-15/581687150_18072568784351243_1879738694208585031_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=107&ig_cache_key=Mzc2NDMyNDgyMDA0NTUzODczNw%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjEyNTh4MTI1Ny5zZHIuQzMifQ%3D%3D&_nc_ohc=pcAZmigLH3sQ7kNvwEGIjKg&_nc_oc=Adlk6iCL269FvdVbRUT_cjfz4bj-HlinycnWw07FDUcj4mc0fqnCpofFTJQp8oW68o1aX_NOFhVbgXAoph0V-jbm&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=instagram.fmid3-1.fna&_nc_gid=ziCfSvXjycEUhGClnI9axg&_nc_ss=8&oh=00_AfuSPAl3zlYlTWJT1xQgNOZHCME0-nuLomRYMS7bMxfBbA&oe=69A93D93"
+            class="card-img" onclick="openLightbox(this.src)" alt="Hamburguesa Jalapeño Popper" />
+          <div class="card-info">
+            <div onclick="
+                  openCustomizer(
+                    'Hamburguesa Jalapeño Popper',
+                    180,
+                    ['Jalapeño Popper', 'Carne', 'Jamón', 'Queso', 'Tocino', 'Guacamole', 'Tomate', 'Lechuga', 'Cebolla'], 
+                    'hamburguesa',
+                  )
+                ">
+              <h3>Jalapeño Popper</h3>
+              <p>Jalapeño Popper, carne, jamón, queso, tocino, guacamole, tomate, lechuga y cebolla.</p>
+              <div class="includes-fries-tag"><i class="fa-solid fa-french-fries"></i> Incluye papas fritas</div>
+            </div>
+            <div class="card-footer">
+              <span class="price">$180</span>
+              <button class="add-btn btn-burguer" onclick="
+                    openCustomizer(
+                      'Hamburguesa Jalapeño Popper',
+                      180,
+                      ['Jalapeño Popper', 'Carne', 'Jamón', 'Queso', 'Tocino', 'Guacamole', 'Tomate', 'Lechuga', 'Cebolla'],
+                      'hamburguesa',
+                    )
+                  ">
+                +
+              </button>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="card">
+          <img
+            src="https://scontent.fmid6-1.fna.fbcdn.net/v/t39.30808-6/634945205_122167043330923353_4072951165497383220_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=105&ccb=1-7&_nc_sid=7b2446&_nc_ohc=KJkRxOJRwTkQ7kNvwGfD0VC&_nc_oc=AdkQzsibay5PKBHHfzwlmXUKohCPqK5Zt5PyarAFllVmxtQkDMC0BZ8oeo7XLF-y1L1ze19T-pT3ZaflHkXRY2Fh&_nc_zt=23&_nc_ht=scontent.fmid6-1.fna&_nc_gid=WDjbBLyWidH7dcwZL4gVUg&_nc_ss=8&oh=00_AftYc9PauBYxaHu3utIrIZgFLONmlOtM2wEJw2Fuht3AIA&oe=69A91A8C"
+            class="card-img" onclick="openLightbox(this.src)" alt="Hamburguesa Queen" />
+          <div class="card-info">
+            <div onclick="
+                  openCustomizer(
+                    'Hamburguesa Queen',
+                    180,
+                    ['Doble carne', 'Jamón', 'Queso', 'Tocino', 'Aros de cebolla','Tomate', 'Lechuga', 'Cebolla'],
+                    'hamburguesa',
+                  )
+                ">
+              <h3>Queen</h3>
+              <p>Doble carne, jamón, queso, tocino, aros de cebolla, tomate, lechuga y cebolla.</p>
+              <div class="includes-fries-tag"><i class="fa-solid fa-french-fries"></i> Incluye papas fritas</div>
+            </div>
+            <div class="card-footer">
+              <span class="price">$180</span>
+              <button class="add-btn btn-burguer" onclick="
+                    openCustomizer(
+                      'Hamburguesa Queen',
+                      180,
+                      ['Doble carne', 'Jamón', 'Queso', 'Tocino', 'Aros de cebolla','Tomate', 'Lechuga', 'Cebolla'],
+                      'hamburguesa',
+                    )
+                  ">
+                +
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-----------------------------------------------TACOS---------------------------------------------
+                                          ---------------------------------------------TACOS---------------------------------------------
+                                          ---------------------------------------------TACOS---------------------------------------------
+                                          ---------------------------------------------TACOS--------------------------------------------->
+    <section>
+      <div class="section-title title-asado">Tacos, Tortas y Burritos</div>
+      <div class="grid">
+        <div class="card">
+          <img
+            src="https://scontent.fmid6-1.fna.fbcdn.net/v/t39.30808-6/644524068_122168393096923353_3981201877540845883_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=111&ccb=1-7&_nc_sid=7b2446&_nc_ohc=rJDJA53nr5kQ7kNvwFuMETI&_nc_oc=AdnU0M0l4He9Dqfjf5MOj4p-nq1Hb4uAD7F0CUVuygp_pkQokIIspk-L2A8ooXL6SOEa1k8Ma1AqGKlOE-PCxDW-&_nc_zt=23&_nc_ht=scontent.fmid6-1.fna&_nc_gid=SiMsY8zAipih-5zKHw6pkw&_nc_ss=8&oh=00_Aftoaq90eg674H5ob8g1AY4RcGKjAzyWiXzXw1zbDpjR3A&oe=69A92C99Te"
+            class="card-img" onclick="openLightbox(this.src)" alt="Taco Maiz" />
+          <div class="card-info">
+            <div onclick="
+                  openCustomizer(
+                    'Taco Maiz',
+                    23,
+                    ['Carne asada roja'],
+                    'tacoMaiz',
+                  )
+                ">
+              <h3>Taco Maiz</h3>
+              <p>Tortilla y carne asada</p>
+            </div>
+            <div class="card-footer">
+              <span class="price">$23</span>
+              <button class="add-btn btn-asado" onclick="
+                    openCustomizer(
+                      'Taco Maiz',
+                      23,
+                      ['Carne asada roja'],
+                      'tacoMaiz',
+                    )
+                  ">
+                +
+              </button>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="card">
+          <img src="TH.jpeg" class="card-img" onclick="openLightbox(this.src)" alt="Taco Harina" />
+          <div class="card-info">
+            <div onclick="
+                  openCustomizer(
+                    'Taco Harina',
+                    23,
+                    ['Carne asada roja'],
+                    'tacoHarina',
+                  )
+                ">
+              <h3>Taco Harina</h3>
+              <p>Tortilla y carne asada</p>
+            </div>
+            <div class="card-footer">
+              <span class="price">$23</span>
+              <button class="add-btn btn-asado" onclick="
+                    openCustomizer(
+                      'Taco Harina',
+                      23,
+                      ['Carne asada roja'],
+                      'tacoHarina',
+                    )
+                  ">
+                +
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <img src="https://img0.didiglobal.com/static/soda_public/do1_SRgKD9W8NFt5cSvsQKlv" class="card-img"
+            onclick="openLightbox(this.src)" alt="Gringa" />
+          <div class="card-info">
+            <div onclick="
+                  openCustomizer(
+                    'Gringa',
+                    28,
+                    ['Carne asada roja', 'Queso'],
+                    'taco',
+                  )
+                ">
+              <h3>Gringa</h3>
+              <p>Tortilla de harina con queso y carne.</p>
+            </div>
+            <div class="card-footer">
+              <span class="price">$28</span>
+              <button class="add-btn btn-asado" onclick="
+                    openCustomizer(
+                      'Gringa',
+                      28,
+                      ['Carne asada roja', 'Queso'],
+                      'taco',
+                    )
+                  ">
+                +
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <img
+            src="https://scontent.fmid6-1.fna.fbcdn.net/v/t39.30808-6/494563242_1260461575523698_4467277092748135195_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=13d280&_nc_ohc=xE7iLXVmmbEQ7kNvwFbfdg2&_nc_oc=AdnS9nPXbvke3d7w6yKnaxi6g8h_pUA-rB17x0n-T6t4EA5L-rISX5r1W6cvmKA379kDY_Ub8wbfn4FBw9GmxXJH&_nc_zt=23&_nc_ht=scontent.fmid6-1.fna&_nc_gid=ZW8G3D2Z5MtHeNEfJY5sHQ&_nc_ss=8&oh=00_AfsezLITL3DPy6Puxp373nPxqTQVnyjBth1gHofDUe0WcQ&oe=69A95B91"
+            class="card-img" onclick="openLightbox(this.src)" alt="Burritacos" />
+          <div class="card-info">
+            <div onclick="
+                  openCustomizer(
+                    'Burritacos',
+                    32,
+                    ['Carne asada roja', 'Queso'],
+                    'taco',
+                  )
+                ">
+              <h3>Burritacos</h3>
+              <p>Tortilla, jamon, queso y carne asada.</p>
+            </div>
+            <div class="card-footer">
+              <span class="price">$32</span>
+              <button class="add-btn btn-asado" onclick="
+                    openCustomizer(
+                      'Burritacos',
+                      32,
+                      ['Carne asada roja', 'Queso'],
+                      'tacoHarina',
+                    )
+                  ">
+                +
+              </button>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="card">
+          <img src="https://media-cdn.tripadvisor.com/media/photo-s/18/1a/91/32/mestiza-taco-pastor-with.jpg"
+            class="card-img" onclick="openLightbox(this.src)" alt="Mestiza" />
+          <div class="card-info">
+            <div onclick="
+                  openCustomizer(
+                    'Mestiza',
+                    28,
+                    ['Carne asada roja', 'Queso'],
+                    'taco',
+                  )
+                ">
+              <h3>Mestiza</h3>
+              <p>Tortilla de harina con queso y carne.</p>
+            </div>
+            <div class="card-footer">
+              <span class="price">$28</span>
+              <button class="add-btn btn-asado" onclick="
+                    openCustomizer(
+                      'Mestiza',
+                      28,
+                      ['Carne asada roja', 'Queso'],
+                      'taco',
+                    )
+                  ">
+                +
+              </button>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="card">
+          <img
+            src="https://scontent.fmid6-1.fna.fbcdn.net/v/t39.30808-6/625681463_122164718852923353_4222254166433090872_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=106&ccb=1-7&_nc_sid=7b2446&_nc_ohc=MfhUl4qlY-QQ7kNvwGEjsry&_nc_oc=AdnFjbhn752pDHPnbg92qKesHb5agaZql1hwfvw5cKuO0ePS5KpL5SmUKZff1pitzszqg-pjF9PdCUnQaMay75hk&_nc_zt=23&_nc_ht=scontent.fmid6-1.fna&_nc_gid=ZXipb5kROCzzt3j98YHvWQ&_nc_ss=8&oh=00_AfuXarBYihvOuLJnckpvLNiQ85OsD5aRFjzrC4qePN1bmA&oe=69A93ACC"
+            class="card-img" onclick="openLightbox(this.src)" alt="Torta" />
+          <div class="card-info">
+            <div onclick="
+                  openCustomizer(
+                    'Torta Normal',
+                    40,
+                    ['Carne asada roja'],
+                    'TortaN',
+                  )
+                ">
+              <h3>Torta Normal</h3>
+              <p>Pan tipo telera con carne asada.</p>
+            </div>
+            <div class="card-footer">
+              <span class="price">$40</span>
+              <button class="add-btn btn-asado" onclick="
+                    openCustomizer(
+                      'Torta Normal',
+                      40,
+                      ['Carne asada roja', 'Queso'],
+                      'TortaN',
+                    )
+                  ">
+                +
+              </button>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="card">
+          <img
+            src="https://scontent.fmid6-1.fna.fbcdn.net/v/t39.30808-6/625681463_122164718852923353_4222254166433090872_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=106&ccb=1-7&_nc_sid=7b2446&_nc_ohc=MfhUl4qlY-QQ7kNvwGEjsry&_nc_oc=AdnFjbhn752pDHPnbg92qKesHb5agaZql1hwfvw5cKuO0ePS5KpL5SmUKZff1pitzszqg-pjF9PdCUnQaMay75hk&_nc_zt=23&_nc_ht=scontent.fmid6-1.fna&_nc_gid=ZXipb5kROCzzt3j98YHvWQ&_nc_ss=8&oh=00_AfuXarBYihvOuLJnckpvLNiQ85OsD5aRFjzrC4qePN1bmA&oe=69A93ACC"
+            class="card-img" onclick="openLightbox(this.src)" alt="TortaE" />
+          <div class="card-info">
+            <div onclick="
+                  openCustomizer(
+                    'Torta Especial',
+                    45,
+                    ['Carne asada roja','Queso', 'Jamon', 'Frijol'],
+                    'TortaE',
+                  )
+                ">
+              <h3>Torta Especial</h3>
+              <p>Pan tipo telera con jamon, queso, frijol y carne asada.</p>
+            </div>
+            <div class="card-footer">
+              <span class="price">$45</span>
+              <button class="add-btn btn-asado" onclick="
+                    openCustomizer(
+                      'Torta Especial',
+                      45,
+                      ['Carne asada roja', 'Queso', 'Jamon', 'Frijol'],
+                      'TortaE',
+                    )
+                  ">
+                +
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <img
+            src="https://scontent.fmid6-1.fna.fbcdn.net/v/t39.30808-6/626957671_122164385750923353_2501331508081201391_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=109&ccb=1-7&_nc_sid=7b2446&_nc_ohc=tyV_2lLnRzkQ7kNvwFaXtF1&_nc_oc=Adm8DZqlbWICBBSxsO2v4SDgU9OOQZecGP68_A5bDFad3HRZ5ZGD8-xyHLnsXl6RcpAd40Oo7yX_i-22SJAWlFcz&_nc_zt=23&_nc_ht=scontent.fmid6-1.fna&_nc_gid=cqZzVVjLlHIDeo4ebekykA&_nc_ss=8&oh=00_AfvwIhuHlgAujXVrE6QYWG9yQQ84LaiYPrGseHTgHju-eg&oe=69A938F2"
+            class="card-img" onclick="openLightbox(this.src)" alt="Burrito" />
+          <div class="card-info">
+            <div onclick="
+                  openCustomizer(
+                    'Burrito',
+                    140,
+                    ['Carne asada roja', 'Jamon', 'Queso', 'Frijol', 'Ensalada', 'Papas fritas'],
+                    'burrito',
+                  )
+                ">
+              <h3>Burrito</h3>
+              <p>Tortilla de harina con queso y carne.</p>
+            </div>
+            <div class="card-footer">
+              <span class="price">$140</span>
+              <button class="add-btn btn-asado" onclick="
+                    openCustomizer(
+                      'Burrito',
+                      140,
+                      ['Carne asada roja', 'Jamon', 'Queso', 'Frijol', 'Ensalada', 'Papas fritas'],
+                      'burrito',
+                    )
+                  ">
+                +
+              </button>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="card">
+          <img src="https://i.ytimg.com/vi/M_lP97rtoVw/maxresdefault.jpg" class="card-img"
+            onclick="openLightbox(this.src)" alt="Carne Asada Medio" />
+          <div class="card-info">
+            <div onclick="
+                  openCustomizer(
+                    'Carne Asada Medio',
+                    220,
+                    ['Carne asada roja', 'Queso'],
+                    'carneAsada',
+                  )
+                ">
+              <h3>Carne asada Medio</h3>
+              <p>Tortilla de harina con queso y carne.</p>
+            </div>
+            <div class="card-footer">
+              <span class="price">$220</span>
+              <button class="add-btn btn-asado" onclick="
+                    openCustomizer(
+                      'Carne Asada Medio',
+                      220,
+                      ['Carne asada roja', 'Queso'],
+                      'carneAsada',
+                    )
+                  ">
+                +
+              </button>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="card">
+          <img src="https://i.ytimg.com/vi/M_lP97rtoVw/maxresdefault.jpg" class="card-img"
+            onclick="openLightbox(this.src)" alt="Carne Asada Kilo" />
+          <div class="card-info">
+            <div onclick="
+                  openCustomizer(
+                    'Carne Asada Kilo',
+                    400,
+                    ['Carne asada roja', 'Tortillas'],
+                    'carneAsada',
+                  )
+                ">
+              <h3>Carne asada Kilo</h3>
+              <p>Tortilla de harina con queso y carne.</p>
+            </div>
+            <div class="card-footer">
+              <span class="price">$400</span>
+              <button class="add-btn btn-asado" onclick="
+                    openCustomizer(
+                      'Carne Asada Kilo',
+                      400,
+                      ['Carne asada roja', 'Tortillas'],
+                      'carneAsada',
+                    )
+                  ">
+                +
+              </button>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </section>
+
+    <section style="
+          background: var(--green-light);
+          margin: 20px 15px;
+          border-radius: 20px;
+          padding: 20px;
+        ">
+      <div class="section-title title-asado" style="margin-bottom: 15px">
+        Extras
+      </div>
+      <div class="extra-item" onclick="add('Queso Fundido', 100)">
+        <div class="extra-info">
+          <img
+            src="https://scontent.fmid6-1.fna.fbcdn.net/v/t1.6435-9/120138428_3271518162966259_4497717405862355631_n.jpg?stp=dst-jpg_s640x640_tt6&_nc_cat=108&ccb=1-7&_nc_sid=06a7ca&_nc_ohc=f4Lnog6LgVUQ7kNvwECCDG8&_nc_oc=Adnt7yh3uxLUihNRTF1tne2KYdAgQu_GlEHgLV84A2GDVrkCaVykgMbR3eAd2gV3rpCrDXZjBFrOzSlU4BvJLNmM&_nc_zt=23&_nc_ht=scontent.fmid6-1.fna&_nc_gid=vAGaDB_iqQ2mLD-zebOoLQ&_nc_ss=8&oh=00_AfuwSvPSSRKOf29V5ClRdjzC0qMlMeGut0V0vjNTpcucYg&oe=69CAF6D3"
+            alt="Queso Fundido" class="extra-img">
+          <div>
+            <span style="display: block; font-weight: 700; color: var(--brown-dark); font-size: 15px;">Queso
+              Fundido</span>
+            <b style="color: var(--accent-orange); font-size: 14px;">$100</b>
+          </div>
+        </div>
+        <button class="add-btn btn-asado">+</button>
+      </div>
+      <div class="extra-item" onclick="add('Queso Fundido Especial', 120)">
+        <div class="extra-info">
+          <img src="https://tvpacifico.mx/recetas/intranet/images/recipes/322-341.jpg" alt="Queso Fundido Especial"
+            class="extra-img">
+          <div>
+            <span style="display: block; font-weight: 700; color: var(--brown-dark); font-size: 15px;">Queso
+              Especial</span>
+            <b style="color: var(--accent-orange); font-size: 14px;">$120</b>
+          </div>
+        </div>
+        <button class="add-btn btn-asado">+</button>
+      </div>
+    </section>
+  </div>
+
+  <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <span class="close-lightbox">×</span>
+    <img id="lightbox-img" src="" alt="Zoom" />
+  </div>
+
+  <div id="modal-custom" class="modal">
+    <div class="modal-content custom-sheet">
+      <div class="sheet-header">
+        <div class="drag-handle"></div>
+        <h2 id="modal-title">Personalizar</h2>
+        <p class="modal-subtitle">¿Cómo lo prefieres?</p>
+      </div>
+      <div id="ingredients-list" class="ingredients-container"></div>
+
+      <div id="extras-container" class="ingredients-container"
+        style="border-top: 1px solid #eee; padding-top: 15px; display: none">
+        <p style="font-weight: 800; font-size: 14px; margin-bottom: 10px">
+          Complementos:
+        </p>
+        <div id="extras-list"></div>
+      </div>
+
+      <div class="sheet-footer">
+        <div class="quantity-selector-container">
+          <p style="font-weight: 800; font-size: 14px; margin-bottom: 0;">Cantidad:</p>
+          <div class="quantity-controls">
+            <button class="qty-btn" onclick="changeQuantity(-1)"><i class="fa-solid fa-minus"></i></button>
+            <span id="item-quantity" class="qty-number">1</span>
+            <button class="qty-btn" onclick="changeQuantity(1)"><i class="fa-solid fa-plus"></i></button>
+          </div>
+        </div>
+
+        <button class="confirm-btn flex-col-btn" onclick="confirmCustomization()">
+          <span style="display:flex; align-items:center; gap:8px;">
+            <span>Agregar Pedido</span>
+            <i class="fa-solid fa-cart-plus"></i>
+          </span>
+          <small id="modal-price-total" style="font-size: 12px; font-weight: 600; opacity: 0.9;"></small>
+        </button>
+        <button class="cancel-btn" onclick="closeModal()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal-checkout" class="modal">
+    <div class="modal-content custom-sheet checkout-sheet">
+      <div class="sheet-header">
+        <div class="drag-handle"></div>
+        <h2>Tu Pedido</h2>
+        <p class="modal-subtitle">Revisa tu orden antes de enviar</p>
+      </div>
+      <div id="checkout-list" class="checkout-container"></div>
+
+      <div style="margin-bottom: 20px;">
+        <p style="font-weight: 800; font-size: 14px; margin-bottom: 8px">Tus Datos:</p>
+        <input type="text" id="order-name" placeholder="Nombre completo"
+          style="width: 100%; height: 42px; border-radius: 10px; border: 1px solid #eee; padding: 10px; font-family: inherit; font-size: 13px; margin-bottom: 8px;">
+        <input type="tel" id="order-phone" placeholder="Celular"
+          style="width: 100%; height: 42px; border-radius: 10px; border: 1px solid #eee; padding: 10px; font-family: inherit; font-size: 13px;">
+      </div>
+
+      <div class="delivery-methods" style="margin-bottom: 20px">
+        <p style="font-weight: 800; font-size: 14px; margin-bottom: 10px">
+          ¿Cómo recibirás tu pedido?
+        </p>
+        <div style="display: flex; gap: 10px">
+          <label class="method-option">
+            <input type="radio" name="delivery-type" value="Para Recoger" checked onclick="toggleAddressField(false)" />
+            <div class="method-box">
+              <img src="https://em-content.zobj.net/source/apple/391/shopping-bags_1f6cd-fe0f.png" alt="Recoger"
+                style="width: 45px; height: 45px; object-fit: contain; margin-bottom: 5px;">
+              <span>Pasaré por él</span>
+            </div>
+          </label>
+          <label class="method-option">
+            <input type="radio" name="delivery-type" value="A domicilio" onclick="toggleAddressField(true)" />
+            <div class="method-box">
+              <img src="https://em-content.zobj.net/source/apple/391/motor-scooter_1f6f5.png" alt="A domicilio"
+                style="width: 45px; height: 45px; object-fit: contain; margin-bottom: 5px;">
+              <span>A domicilio</span>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div id="address-section" style="display: none; margin-bottom: 15px">
+        <p style="font-weight: 800; font-size: 14px; margin-bottom: 8px">
+          Dirección de entrega:
+        </p>
+
+        <!-- --- COMPARTIR UBICACIÓN --- -->
+        <div class="location-share-container">
+          <div class="location-header">
+            <span class="location-title">Ubicación</span>
+            <span class="location-badge">Recomendado</span>
+          </div>
+          <p class="location-subtitle">El envío será más rápido</p>
+          <button type="button" class="btn-share-location" id="btn-share-location" onclick="requestLocation()">
+            <span id="location-btn-text">Compartir ubicación</span>
+            <i class="fa-solid fa-location-dot"></i>
+          </button>
+          <input type="hidden" id="order-lat" value="">
+          <input type="hidden" id="order-lng" value="">
+        </div>
+        <!-- ----------------------------- -->
+
+        <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+          <input type="text" id="order-street" placeholder="Calle"
+            style="flex: 2; height: 42px; border-radius: 10px; border: 1px solid #eee; padding: 10px; font-family: inherit; font-size: 13px;">
+          <input type="text" id="order-number" placeholder="Número"
+            style="flex: 1; height: 42px; border-radius: 10px; border: 1px solid #eee; padding: 10px; font-family: inherit; font-size: 13px;">
+        </div>
+
+        <input type="text" id="order-colonia" placeholder="Colonia"
+          style="width: 100%; height: 42px; border-radius: 10px; border: 1px solid #eee; padding: 10px; font-family: inherit; font-size: 13px; margin-bottom: 8px;">
+
+        <textarea id="order-references" placeholder="Referencias de la casa (color, portón, cruzamientos)..." style="
+              width: 100%;
+              height: 50px;
+              border-radius: 12px;
+              border: 1px solid #eee;
+              padding: 10px;
+              resize: none;
+              font-family: inherit;
+              font-size: 13px;
+              margin-bottom: 8px;
+            "></textarea>
+
+        <div
+          style="display: flex; gap: 8px; background: rgba(245, 158, 11, 0.15); padding: 10px; border-radius: 10px; align-items: flex-start; border: 1px solid rgba(245, 158, 11, 0.3);">
+          <i class="fa-solid fa-motorcycle" style="color: var(--brown-light); font-size: 14px; margin-top: 2px;"></i>
+          <p style="margin: 0; font-size: 11px; color: var(--brown-dark); line-height: 1.4;">
+            <b>Tarifa de envío adicional:</b> El costo varía según tu ubicación. <b>Te lo cotizaremos al confirmar en
+              WhatsApp.</b>
+          </p>
+        </div>
+      </div>
+
+      <div class="notes-section" style="margin: 15px 0">
+        <p style="font-weight: 800; font-size: 14px; margin-bottom: 8px">
+          Notas o Cambios:
+        </p>
+        <textarea id="order-notes" placeholder="Ej. Cambio de $500..." style="
+              width: 100%;
+              height: 60px;
+              border-radius: 12px;
+              border: 1px solid #eee;
+              padding: 10px;
+              resize: none;
+              font-family: inherit;
+              font-size: 13px;
+            "></textarea>
+      </div>
+
+      <div class="marketing-section">
+        <p class="marketing-title">¿Se te antoja algo más? 🔥</p>
+        <div class="marketing-grid" id="marketing-list"></div>
+      </div>
+
+      <div class="sheet-footer">
+        <button class="confirm-btn whatsapp-final-btn" onclick="sendOrder()">
+          <span>Confirmar en WhatsApp</span>
+          <i class="fa-brands fa-whatsapp"></i>
+        </button>
+        <button class="cancel-btn" onclick="closeCheckout()">
+          Seguir comprando
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal-closed-lock" class="modal" style="
+        display: none;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.85);
+      ">
+    <div class="modal-content" style="
+          text-align: center;
+          border-radius: 24px;
+          width: 90%;
+          max-width: 400px;
+          margin: auto;
+          padding: 35px 25px;
+        ">
+      <div style="color: #ff5252; font-size: 60px; margin-bottom: 20px">
+        <i class="fa-duotone fa-regular fa-shop-slash"></i>
+      </div>
+      <h2 style="
+            color: var(--brown-dark);
+            margin-bottom: 10px;
+            font-weight: 800;
+          ">
+        ¡Volvemos pronto!
+      </h2>
+      <p style="
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 25px;
+            line-height: 1.5;
+          ">
+        Los pedidos están deshabilitados en este momento. Solo podrás ver el
+        menú.
+      </p>
+      <div style="
+            background: #f8f9fa;
+            padding: 18px;
+            border-radius: 16px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+          ">
+        <span class="material-symbols-rounded" style="color: var(--brown-dark)">schedule</span>
+        <p style="font-weight: 800; margin: 0; color: var(--text)">
+          Abrimos hoy a las 7:00 PM
+        </p>
+      </div>
+      <button class="confirm-btn" onclick="closeClosedModal()" style="
+            background: #f0f0f0;
+            color: #333;
+            border: none;
+            width: 100%;
+            padding: 15px;
+            border-radius: 15px;
+            font-weight: 700;
+            cursor: pointer;
+          ">
+        Ver Menú
+      </button>
+      <button class="cancel-btn" onclick="
+            openHours();
+            closeClosedModal();
+          " style="
+            margin-top: 20px;
+            background: none;
+            border: none;
+            color: #888;
+            text-decoration: underline;
+            font-size: 13px;
+            cursor: pointer;
+            width: 100%;
+          ">
+        Ver horarios completos
+      </button>
+    </div>
+  </div>
+
+  <!-- --- MAPA INTERACTIVO (LEAFLET) --- -->
+  <div id="modal-map" class="modal">
+    <div class="modal-content" style="padding: 0; max-height: 95vh; display: flex; flex-direction: column;">
+      <!-- Cabecera del Mapa -->
+      <div
+        style="padding: 15px 20px; display: flex; align-items: center; position: relative; border-bottom: 1px solid #eee;">
+        <button type="button" onclick="closeMapModal()"
+          style="background: none; border: 1px solid #eee; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--brown-dark); box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <div style="flex: 1; text-align: center;">
+          <h2 style="margin: 0; font-size: 18px; color: var(--brown-dark); font-weight: 800;">Ubicación</h2>
+          <p style="margin: 4px 0 0; font-size: 12px; color: var(--text-muted);">Arrastra el mapa para seleccionar el
+            punto de entrega del pedido.</p>
+        </div>
+        <div style="width: 36px;"></div> <!-- Spacer para balancear el titulo -->
+      </div>
+
+      <!-- Contenedor del Mapa -->
+      <div style="position: relative; flex: 1; min-height: 50vh;">
+        <div id="leaflet-map" style="width: 100%; height: 100%;"></div>
+        <!-- Marcador central fijo superpuesto -->
+        <div class="map-center-pin">
+          <i class="fa-solid fa-location-dot"></i>
+        </div>
+        <!-- Botón para centrar en mi ubicación actual -->
+        <button type="button" class="btn-my-location" onclick="centerToCurrentLocation()">
+          <i class="fa-solid fa-crosshairs"></i>
+        </button>
+      </div>
+
+      <!-- Pie del Mapa -->
+      <div style="padding: 20px;">
+        <button type="button" class="confirm-btn" onclick="saveMapLocation()"
+          style="background: #10b981; border: none; font-size: 15px;">
+          Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- ---------------------------------- -->
+
+  <div id="modal-hours" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Horario</h2>
+      </div>
+      <div class="hours-container" style="
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+          ">
+        <div style="display: flex; justify-content: space-between">
+          <span>Lunes</span> <b>7:00 PM - 10:00 PM</b>
+        </div>
+        <div style="display: flex; justify-content: space-between">
+          <span>Martes</span> <b>7:00 PM - 10:00 PM</b>
+        </div>
+        <div style="display: flex; justify-content: space-between">
+          <span>Miércoles</span> <b>7:00 PM - 10:00 PM</b>
+        </div>
+        <div style="display: flex; justify-content: space-between">
+          <span>Jueves</span> <b>6:00 PM - 11:15 PM</b>
+        </div>
+        <div style="display: flex; justify-content: space-between">
+          <span>Viernes</span> <b>7:00 PM - 10:00 PM</b>
+        </div>
+        <div style="display: flex; justify-content: space-between">
+          <span>Sábado</span> <b>7:00 PM - 10:00 PM</b>
+        </div>
+        <div style="display: flex; justify-content: space-between">
+          <span>Domingo</span> <b>7:00 PM - 10:00 PM</b>
+        </div>
+      </div>
+      <button class="confirm-btn" onclick="closeHours()">Cerrar</button>
+    </div>
+  </div>
+
+  <div id="cart-bar" onclick="openCheckout()">
+    <div class="cart-info-bar">
+      <span class="count-badge" id="cart-count">0</span>
+      <span id="cart-total" style="font-weight: 700">$0</span>
+    </div>
+    <div class="whatsapp-btn">Ver Carrito</div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
