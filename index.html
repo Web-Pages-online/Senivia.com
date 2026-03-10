@@ -51,16 +51,31 @@
       <h1>SENIVIA</h1>
       <p>"Donde el fuego se vuelve sabor"</p>
       <nav class="nav-header-container">
-        <a href="https://maps.app.goo.gl/EeYADAYWjaHBzVqx6" target="_blank" class="nav-icon-btn">
-          <i class="fa-solid fa-location-dot"></i>
-        </a>
-        <button class="nav-icon-btn" onclick="openHours()">
-          <span class="material-symbols-rounded">schedule</span>
-        </button>
-        <a href="https://wa.me/529991505132?text=%C2%A1Hola%20Senivia!%20Me%20gustar%C3%ADa%20hacer%20un%20pedido.%20%F0%9F%94%A5"
-          target="_blank" class="nav-icon-btn">
-          <i class="fa-brands fa-whatsapp"></i>
-        </a>
+        <div class="nav-item">
+          <a href="https://maps.app.goo.gl/EeYADAYWjaHBzVqx6" target="_blank" class="nav-icon-btn">
+            <i class="fa-solid fa-location-dot"></i>
+          </a>
+          <span class="nav-label">Ubicación</span>
+        </div>
+        <div class="nav-item">
+          <button class="nav-icon-btn" onclick="openHours()">
+            <span class="material-symbols-rounded">schedule</span>
+          </button>
+          <span class="nav-label">Horario</span>
+        </div>
+        <div class="nav-item">
+          <button class="nav-icon-btn" onclick="openPayment()">
+            <i class="fa-solid fa-wallet"></i>
+          </button>
+          <span class="nav-label">Pagos</span>
+        </div>
+        <div class="nav-item">
+          <a href="https://wa.me/529991505132?text=%C2%A1Hola%20Senivia!%20Me%20gustar%C3%ADa%20hacer%20un%20pedido.%20%F0%9F%94%A5"
+            target="_blank" class="nav-icon-btn">
+            <i class="fa-brands fa-whatsapp"></i>
+          </a>
+          <span class="nav-label">WhatsApp</span>
+        </div>
       </nav>
     </header>
 
@@ -75,9 +90,7 @@
       <div class="grid">
         <div class="card">
           <span class="badge-popular"><i class="fa-solid fa-fire"></i> Lo más pedido</span>
-          <img
-            src="Clasic.jpeg"
-            class="card-img" onclick="openLightbox(this.src)" alt="Hamburguesa Clásica" />
+          <img src="Clasic.jpeg" class="card-img" onclick="openLightbox(this.src)" alt="Hamburguesa Clásica" />
           <div class="card-info">
             <div onclick="
                   openCustomizer(
@@ -154,9 +167,7 @@
         </div>
 
         <div class="card">
-          <img
-            src="Hawaiana.jpg"
-            class="card-img" onclick="openLightbox(this.src)" alt="Hamburguesa Hawaiana" />
+          <img src="Hawaiana.jpg" class="card-img" onclick="openLightbox(this.src)" alt="Hamburguesa Hawaiana" />
           <div class="card-info">
             <div onclick="
                   openCustomizer(
@@ -187,9 +198,7 @@
         </div>
 
         <div class="card">
-          <img
-            src="Smash.jpeg"
-            class="card-img" onclick="openLightbox(this.src)" alt="Hamburguesa Smash Burguer" />
+          <img src="Smash.jpeg" class="card-img" onclick="openLightbox(this.src)" alt="Hamburguesa Smash Burguer" />
           <span class="badge-popular"><i class="fa-solid fa-fire"></i> Lo más pedido</span>
           <div class="card-info">
             <div onclick="
@@ -255,9 +264,7 @@
 
 
         <div class="card">
-          <img
-            src="DQ.jpeg"
-            class="card-img" onclick="openLightbox(this.src)" alt="Hamburguesa Dedos de Queso" />
+          <img src="DQ.jpeg" class="card-img" onclick="openLightbox(this.src)" alt="Hamburguesa Dedos de Queso" />
           <div class="card-info">
             <div onclick="
                   openCustomizer(
@@ -355,10 +362,8 @@
 
 
         <div class="card">
-          <img
-            src="Poppers.jpeg"
-            class="card-img" onclick="openLightbox(this.src)" alt="Hamburguesa Jalapeño Popper" />
-                      <span class="badge-popular"><i class="fa-solid fa-fire"></i> Lo más pedido</span>
+          <img src="Poppers.jpeg" class="card-img" onclick="openLightbox(this.src)" alt="Hamburguesa Jalapeño Popper" />
+          <span class="badge-popular"><i class="fa-solid fa-fire"></i> Lo más pedido</span>
           <div class="card-info">
             <div onclick="
                   openCustomizer(
@@ -390,9 +395,7 @@
 
 
         <div class="card">
-          <img
-            src="Queen.jpeg"
-            class="card-img" onclick="openLightbox(this.src)" alt="Hamburguesa Queen" />
+          <img src="Queen.jpeg" class="card-img" onclick="openLightbox(this.src)" alt="Hamburguesa Queen" />
           <div class="card-info">
             <div onclick="
                   openCustomizer(
@@ -432,9 +435,7 @@
       <div class="section-title title-asado">Tacos, Tortas y Burritos</div>
       <div class="grid">
         <div class="card">
-          <img
-            src="TM.jpg"
-            class="card-img" onclick="openLightbox(this.src)" alt="Taco Maiz" />
+          <img src="TM.jpg" class="card-img" onclick="openLightbox(this.src)" alt="Taco Maiz" />
           <div class="card-info">
             <div onclick="
                   openCustomizer(
@@ -591,10 +592,8 @@
 
 
         <div class="card">
-          <img
-            src="Tortas.jpg"
-            class="card-img" onclick="openLightbox(this.src)" alt="Torta" />
-                      <span class="badge-popular"><i class="fa-solid fa-fire"></i> Lo más pedido</span>
+          <img src="Tortas.jpg" class="card-img" onclick="openLightbox(this.src)" alt="Torta" />
+          <span class="badge-popular"><i class="fa-solid fa-fire"></i> Lo más pedido</span>
           <div class="card-info">
             <div onclick="
                   openCustomizer(
@@ -625,10 +624,8 @@
 
 
         <div class="card">
-          <img
-            src="Tortas.jpg"
-            class="card-img" onclick="openLightbox(this.src)" alt="TortaE" />
-                      <span class="badge-popular"><i class="fa-solid fa-fire"></i> Lo más pedido</span>
+          <img src="Tortas.jpg" class="card-img" onclick="openLightbox(this.src)" alt="TortaE" />
+          <span class="badge-popular"><i class="fa-solid fa-fire"></i> Lo más pedido</span>
           <div class="card-info">
             <div onclick="
                   openCustomizer(
@@ -658,9 +655,7 @@
         </div>
 
         <div class="card">
-          <img
-            src="Burrito.jpg"
-            class="card-img" onclick="openLightbox(this.src)" alt="Burrito" />
+          <img src="Burrito.jpg" class="card-img" onclick="openLightbox(this.src)" alt="Burrito" />
           <div class="card-info">
             <div onclick="
                   openCustomizer(
@@ -766,7 +761,7 @@
       <div class="section-title title-asado" style="margin-bottom: 15px">
         Extras
       </div>
-<div class="extra-item" onclick="add('Papas Fritas', 75)">
+      <div class="extra-item" onclick="add('Papas Fritas', 75)">
         <div class="extra-info">
           <img src="https://www.fiestastarted.com/comeleya/restaurante/platillo/996.jpg" alt="Papas Fritas"
             class="extra-img">
@@ -1130,6 +1125,108 @@
         </div>
       </div>
       <button class="confirm-btn" onclick="closeHours()">Cerrar</button>
+    </div>
+  </div>
+
+  <div id="modal-payment" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Métodos de Pago</h2>
+      </div>
+      <div class="payment-methods-container" style="
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+          ">
+
+        <!-- Tarjeta de Efectivo -->
+        <div style="
+              background: #f8f9fa;
+              border: 1px solid #eee;
+              border-radius: 16px;
+              padding: 15px;
+              display: flex;
+              align-items: center;
+              gap: 15px;
+            ">
+          <div style="
+                width: 45px;
+                height: 45px;
+                background: rgba(16, 185, 129, 0.1);
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #10b981;
+                font-size: 20px;
+              ">
+            <i class="fa-solid fa-money-bill-wave"></i>
+          </div>
+          <div>
+            <h3 style="margin: 0; font-size: 16px; color: var(--brown-dark);">Efectivo</h3>
+            <p style="margin: 4px 0 0; font-size: 13px; color: var(--text-muted);">Paga al recibir o recoger tu pedido.
+            </p>
+          </div>
+        </div>
+
+        <!-- Tarjeta de Transferencia -->
+        <div style="
+              background: #f8f9fa;
+              border: 1px solid #eee;
+              border-radius: 16px;
+              padding: 15px;
+              display: flex;
+              align-items: center;
+              gap: 15px;
+            ">
+          <div style="
+                width: 45px;
+                height: 45px;
+                background: rgba(59, 130, 246, 0.1);
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #3b82f6;
+                font-size: 20px;
+              ">
+            <i class="fa-solid fa-money-check-dollar"></i>
+          </div>
+          <div style="flex: 1;">
+            <h3 style="margin: 0; font-size: 16px; color: var(--brown-dark);">Transferencia</h3>
+            <p style="margin: 4px 0 6px; font-size: 13px; color: var(--text-muted);">Usa el siguiente número de cuenta o
+              CLABE:</p>
+            <div style="
+                  background: white;
+                  border: 1px dashed #ccc;
+                  padding: 8px 12px;
+                  border-radius: 8px;
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                ">
+              <span
+                style="font-family: monospace; font-size: 14px; font-weight: 700; color: var(--brown-dark); letter-spacing: 1px;">4152
+                3139 4705 4735</span>
+              <button onclick="navigator.clipboard.writeText('4152313947054735'); alert('¡Cuenta copiada!');" style="
+                    background: none;
+                    border: none;
+                    color: var(--accent-orange);
+                    cursor: pointer;
+                    font-size: 16px;
+                    padding: 4px;
+                  ">
+                <i class="fa-regular fa-copy"></i>
+              </button>
+            </div>
+            <p style="margin: 6px 0 0; font-size: 12px; color: var(--text-muted); font-style: italic;">Por favor, envía
+              el comprobante por WhatsApp.</p>
+          </div>
+        </div>
+
+      </div>
+      <button class="confirm-btn" onclick="closePayment()">Entendido</button>
     </div>
   </div>
 

@@ -620,6 +620,14 @@ function closeHours() {
   document.getElementById("modal-hours").style.display = "none";
 }
 
+function openPayment() {
+  document.getElementById("modal-payment").style.display = "flex";
+}
+
+function closePayment() {
+  document.getElementById("modal-payment").style.display = "none";
+}
+
 // --- GENERADOR DE PATRÓN DE FONDO ---
 function generateBackgroundPattern() {
   const container = document.getElementById("bg-pattern");
@@ -684,12 +692,14 @@ window.onload = () => {
 window.onclick = function (event) {
   const mC = document.getElementById("modal-custom");
   const mH = document.getElementById("modal-hours");
+  const mP = document.getElementById("modal-payment");
   const mK = document.getElementById("modal-checkout");
   const mLock = document.getElementById("modal-closed-lock");
   const lb = document.getElementById("lightbox");
 
   if (event.target == mC) closeModal();
   if (event.target == mH) closeHours();
+  if (event.target == mP) closePayment();
   if (event.target == mK) closeCheckout();
   if (event.target == mLock) closeClosedModal();
   if (event.target == lb) closeLightbox();
