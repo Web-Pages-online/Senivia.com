@@ -252,7 +252,8 @@ header p {
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  width: 65px; /* Ensures labels have enough width to center text without pushing icons */
+  width: 65px;
+  /* Ensures labels have enough width to center text without pushing icons */
 }
 
 .nav-icon-btn {
@@ -268,12 +269,14 @@ header p {
   cursor: pointer;
   transition: var(--transition);
   text-decoration: none;
-  font-size: 22px; /* Normalized icon size */
+  font-size: 22px;
+  /* Normalized icon size */
   padding: 0;
 }
 
 .nav-icon-btn .material-symbols-rounded {
-  font-size: 24px; /* Slightly adjust material symbols to match awesome fonts visually */
+  font-size: 24px;
+  /* Slightly adjust material symbols to match awesome fonts visually */
 }
 
 .nav-label {
@@ -1150,4 +1153,142 @@ section {
   background-color: #999 !important;
   cursor: pointer;
   filter: grayscale(1);
+}
+
+/* --- NUEVOS ESTILOS PARA CHECKOUT V2 --- */
+.checkout-sheet {
+  background: var(--bg-cream);
+  padding: 20px 20px 40px;
+}
+
+.checkout-card {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 18px;
+  margin-bottom: 18px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.02);
+}
+
+.checkout-section-title {
+  font-weight: 800;
+  font-size: 15px;
+  color: var(--brown-dark);
+  margin: 0 0 12px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.checkout-section-title i {
+  color: var(--accent-orange);
+  font-size: 16px;
+}
+
+/* Campos de texto con Icono */
+.input-with-icon {
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.input-with-icon i {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--brown-light);
+  font-size: 14px;
+  pointer-events: none;
+  transition: 0.2s;
+}
+
+.input-with-icon input,
+.input-with-icon textarea {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid #ebebeb;
+  background: #fcfcfc;
+  padding: 12px 12px 12px 40px;
+  /* Espacio para el icono */
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--brown-dark);
+  transition: 0.2s;
+  outline: none;
+}
+
+.input-with-icon textarea {
+  padding-top: 12px;
+  resize: none;
+  min-height: 80px;
+}
+
+.input-with-icon textarea+i {
+  top: 14px;
+  transform: none;
+}
+
+.input-with-icon input:focus,
+.input-with-icon textarea:focus {
+  border-color: var(--accent-orange);
+  background: var(--white);
+  box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.1);
+}
+
+.input-with-icon input:focus+i,
+.input-with-icon textarea:focus~i {
+  color: var(--accent-orange);
+}
+
+/* Variante sin icono para algunos campos */
+.input-no-icon input,
+.input-no-icon textarea {
+  padding-left: 14px;
+}
+
+/* Validación Visual de Errores */
+.input-error input,
+.input-error textarea {
+  border-color: #ef4444 !important;
+  background: #fef2f2 !important;
+}
+
+.input-error i {
+  color: #ef4444 !important;
+}
+
+/* Mejoras a los Radios de Método de Entrega */
+.methods-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.method-box {
+  background: #fcfcfc;
+  border: 2px solid #ebebeb;
+  border-radius: 16px;
+  padding: 15px 10px;
+  height: auto;
+  min-height: 100px;
+}
+
+.method-option input:checked+.method-box {
+  border-color: var(--accent-orange);
+  background: rgba(245, 158, 11, 0.05);
+  /* Fondo ligéramente naranja en vez de oscuro total para lectura fácil */
+  color: var(--brown-dark);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.15);
+}
+
+/* Alerta de tarifa dentro del formulario */
+.delivery-fee-alert {
+  display: flex;
+  gap: 10px;
+  background: rgba(245, 158, 11, 0.1);
+  padding: 12px 15px;
+  border-radius: 12px;
+  align-items: flex-start;
+  margin-top: 12px;
+  border-left: 3px solid var(--accent-orange);
 }

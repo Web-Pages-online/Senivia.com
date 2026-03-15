@@ -852,26 +852,38 @@
         <h2>Tu Pedido</h2>
         <p class="modal-subtitle">Revisa tu orden antes de enviar</p>
       </div>
-      <div id="checkout-list" class="checkout-container"></div>
 
-      <div style="margin-bottom: 20px;">
-        <p style="font-weight: 800; font-size: 14px; margin-bottom: 8px">Tus Datos:</p>
-        <input type="text" id="order-name" placeholder="Nombre completo"
-          style="width: 100%; height: 42px; border-radius: 10px; border: 1px solid #eee; padding: 10px; font-family: inherit; font-size: 13px; margin-bottom: 8px;">
-        <input type="tel" id="order-phone" placeholder="Celular"
-          style="width: 100%; height: 42px; border-radius: 10px; border: 1px solid #eee; padding: 10px; font-family: inherit; font-size: 13px;">
+      <!-- TARJETA 1: Resumen -->
+      <div class="checkout-card">
+        <h3 class="checkout-section-title"><i class="fa-solid fa-basket-shopping"></i> Resumen del pedido</h3>
+        <div id="checkout-list" class="checkout-container" style="margin-bottom: 0; max-height: 25vh;"></div>
       </div>
 
-      <div class="delivery-methods" style="margin-bottom: 20px">
-        <p style="font-weight: 800; font-size: 14px; margin-bottom: 10px">
-          ¿Cómo recibirás tu pedido?
-        </p>
-        <div style="display: flex; gap: 10px">
+      <!-- TARJETA 2: Datos Personales -->
+      <div class="checkout-card">
+        <h3 class="checkout-section-title"><i class="fa-solid fa-user"></i> Tus Datos Personales</h3>
+        
+        <div class="input-with-icon">
+          <i class="fa-solid fa-user-circle"></i>
+          <input type="text" id="order-name" placeholder="Nombre completo *" oninput="removeError(this)">
+        </div>
+        
+        <div class="input-with-icon">
+          <i class="fa-solid fa-phone"></i>
+          <input type="tel" id="order-phone" placeholder="Celular (Opcional)">
+        </div>
+      </div>
+
+      <!-- TARJETA 3: Método de Entrega -->
+      <div class="checkout-card">
+        <h3 class="checkout-section-title"><i class="fa-solid fa-truck-fast"></i> ¿Cómo recibirás tu pedido?</h3>
+        
+        <div class="methods-grid" style="margin-bottom: 15px">
           <label class="method-option">
             <input type="radio" name="delivery-type" value="Para Recoger" checked onclick="toggleAddressField(false)" />
             <div class="method-box">
               <img src="https://em-content.zobj.net/source/apple/391/shopping-bags_1f6cd-fe0f.png" alt="Recoger"
-                style="width: 45px; height: 45px; object-fit: contain; margin-bottom: 5px;">
+                style="width: 40px; height: 40px; object-fit: contain; margin-bottom: 5px;">
               <span>Pasaré por él</span>
             </div>
           </label>
@@ -879,91 +891,76 @@
             <input type="radio" name="delivery-type" value="A domicilio" onclick="toggleAddressField(true)" />
             <div class="method-box">
               <img src="https://em-content.zobj.net/source/apple/391/motor-scooter_1f6f5.png" alt="A domicilio"
-                style="width: 45px; height: 45px; object-fit: contain; margin-bottom: 5px;">
+                style="width: 40px; height: 40px; object-fit: contain; margin-bottom: 5px;">
               <span>A domicilio</span>
             </div>
           </label>
         </div>
-      </div>
 
-      <div id="address-section" style="display: none; margin-bottom: 15px">
-        <p style="font-weight: 800; font-size: 14px; margin-bottom: 8px">
-          Dirección de entrega:
-        </p>
-
-        <!-- --- COMPARTIR UBICACIÓN --- -->
-        <div class="location-share-container">
-          <div class="location-header">
-            <span class="location-title">Ubicación</span>
-            <span class="location-badge">Recomendado</span>
+        <!-- Sección de Dirección (Oculta por defecto) -->
+        <div id="address-section" style="display: none; padding-top: 10px; border-top: 1px solid #eee;">
+          
+          <!-- COMPARTIR UBICACIÓN -->
+          <div class="location-share-container">
+            <div class="location-header">
+              <span class="location-title">Ubicación GPS</span>
+              <span class="location-badge">Recomendado</span>
+            </div>
+            <p class="location-subtitle">El envío será más rápido y preciso</p>
+            <button type="button" class="btn-share-location" id="btn-share-location" onclick="requestLocation()">
+              <span id="location-btn-text">Compartir ubicación</span>
+              <i class="fa-solid fa-location-dot"></i>
+            </button>
+            <input type="hidden" id="order-lat" value="">
+            <input type="hidden" id="order-lng" value="">
           </div>
-          <p class="location-subtitle">El envío será más rápido</p>
-          <button type="button" class="btn-share-location" id="btn-share-location" onclick="requestLocation()">
-            <span id="location-btn-text">Compartir ubicación</span>
-            <i class="fa-solid fa-location-dot"></i>
-          </button>
-          <input type="hidden" id="order-lat" value="">
-          <input type="hidden" id="order-lng" value="">
-        </div>
-        <!-- ----------------------------- -->
 
-        <div style="display: flex; gap: 8px; margin-bottom: 8px;">
-          <input type="text" id="order-street" placeholder="Calle"
-            style="flex: 2; height: 42px; border-radius: 10px; border: 1px solid #eee; padding: 10px; font-family: inherit; font-size: 13px;">
-          <input type="text" id="order-number" placeholder="Número"
-            style="flex: 1; height: 42px; border-radius: 10px; border: 1px solid #eee; padding: 10px; font-family: inherit; font-size: 13px;">
-        </div>
+          <div style="display: flex; gap: 8px;">
+            <div class="input-with-icon" style="flex: 2;">
+              <i class="fa-solid fa-road"></i>
+              <input type="text" id="order-street" placeholder="Calle *" oninput="removeError(this)">
+            </div>
+            <div class="input-with-icon input-no-icon" style="flex: 1;">
+              <input type="text" id="order-number" placeholder="# Ext">
+            </div>
+          </div>
 
-        <input type="text" id="order-colonia" placeholder="Colonia"
-          style="width: 100%; height: 42px; border-radius: 10px; border: 1px solid #eee; padding: 10px; font-family: inherit; font-size: 13px; margin-bottom: 8px;">
+          <div class="input-with-icon">
+            <i class="fa-solid fa-map-location-dot"></i>
+            <input type="text" id="order-colonia" placeholder="Colonia *" oninput="removeError(this)">
+          </div>
 
-        <textarea id="order-references" placeholder="Referencias de la casa (color, portón, cruzamientos)..." style="
-              width: 100%;
-              height: 50px;
-              border-radius: 12px;
-              border: 1px solid #eee;
-              padding: 10px;
-              resize: none;
-              font-family: inherit;
-              font-size: 13px;
-              margin-bottom: 8px;
-            "></textarea>
+          <div class="input-with-icon">
+            <i class="fa-solid fa-house-flag"></i>
+            <textarea id="order-references" placeholder="Referencias de la casa (color, portón, etc)..."></textarea>
+          </div>
 
-        <div
-          style="display: flex; gap: 8px; background: rgba(245, 158, 11, 0.15); padding: 10px; border-radius: 10px; align-items: flex-start; border: 1px solid rgba(245, 158, 11, 0.3);">
-          <i class="fa-solid fa-motorcycle" style="color: var(--brown-light); font-size: 14px; margin-top: 2px;"></i>
-          <p style="margin: 0; font-size: 11px; color: var(--brown-dark); line-height: 1.4;">
-            <b>Tarifa de envío adicional:</b> El costo varía según tu ubicación. <b>Te lo cotizaremos al confirmar en
-              WhatsApp.</b>
-          </p>
+          <div class="delivery-fee-alert">
+            <i class="fa-solid fa-motorcycle" style="color: var(--accent-orange); font-size: 16px; margin-top: 2px;"></i>
+            <p style="margin: 0; font-size: 12px; color: var(--brown-dark); line-height: 1.4;">
+              <b>Costo de envío:</b> Varía según ubicación. Te lo cotizaremos al confirmar en WhatsApp.
+            </p>
+          </div>
         </div>
       </div>
 
-      <div class="notes-section" style="margin: 15px 0">
-        <p style="font-weight: 800; font-size: 14px; margin-bottom: 8px">
-          Notas o Cambios:
-        </p>
-        <textarea id="order-notes" placeholder="Ej. Cambio de $500..." style="
-              width: 100%;
-              height: 60px;
-              border-radius: 12px;
-              border: 1px solid #eee;
-              padding: 10px;
-              resize: none;
-              font-family: inherit;
-              font-size: 13px;
-            "></textarea>
+      <!-- TARJETA 4: Notas -->
+      <div class="checkout-card">
+        <h3 class="checkout-section-title"><i class="fa-solid fa-comment-dots"></i> Notas o Cambios</h3>
+        <div class="input-with-icon input-no-icon" style="margin-bottom: 0;">
+          <textarea id="order-notes" placeholder="Ej. Cambio de $500, sin cebolla extra, etc..." style="min-height: 60px;"></textarea>
+        </div>
       </div>
 
-      <div class="marketing-section">
+      <div class="marketing-section" style="padding: 0 10px;">
         <p class="marketing-title">¿Se te antoja algo más? 🔥</p>
         <div class="marketing-grid" id="marketing-list"></div>
       </div>
 
-      <div class="sheet-footer">
+      <div class="sheet-footer" style="padding-top: 15px;">
         <button class="confirm-btn whatsapp-final-btn" onclick="sendOrder()">
           <span>Confirmar en WhatsApp</span>
-          <i class="fa-brands fa-whatsapp"></i>
+          <i class="fa-brands fa-whatsapp" style="font-size: 20px;"></i>
         </button>
         <button class="cancel-btn" onclick="closeCheckout()">
           Seguir comprando

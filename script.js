@@ -364,6 +364,10 @@ function launchSuccess() {
   });
 }
 
+function removeError(el) {
+  el.parentElement.classList.remove("input-error");
+}
+
 // 4. WhatsApp Final (Ticket de Texto Estructurado)
 function sendOrder() {
   const now = new Date();
@@ -390,18 +394,40 @@ function sendOrder() {
 
   const notes = document.getElementById("order-notes").value.trim();
 
-  // Validaciones
-  if (!name) {
-    alert("Por favor, ingresa tu Nombre (En la sección 'Tus Datos').");
+  // Validaciones Visuales
+  let hasError = false;
+
+  const validateField = (id) => {
+    const el = document.getElementById(id);
+    if (!el.value.trim()) {
+      el.parentElement.classList.add("input-error");
+      hasError = true;
+    } else {
+      el.parentElement.classList.remove("input-error");
+    }
+  };
+
+  validateField("order-name");
+
+  if (deliveryType === "A domicilio") {
+    // Si no se compartió ubicación, calle y colonia son obligatorios
+    const lat = document.getElementById("order-lat").value;
+    if (!lat) {
+      validateField("order-street");
+      validateField("order-colonia");
+    } else {
+      // Si hay GPS, limpiamos errores pre-existentes de calle/colonia
+      document.getElementById("order-street").parentElement.classList.remove("input-error");
+      document.getElementById("order-colonia").parentElement.classList.remove("input-error");
+    }
+  }
+
+  if (hasError) {
+    // Hacer scroll arriba para que el usuario vea el error
+    document.querySelector('.checkout-sheet').scrollTo({ top: 0, behavior: 'smooth' });
     return;
   }
 
-  if (deliveryType === "A domicilio") {
-    if (!street || !number || !colonia) {
-      alert("Por favor, completa los datos principales de tu dirección (Calle, Número y Colonia).");
-      return;
-    }
-  }
 
   // 1. Efecto Visual de Éxito
   launchSuccess();
