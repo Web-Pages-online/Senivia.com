@@ -31,7 +31,7 @@ function collectMenuForMarketing() {
 
         let img = "fa-utensils";
         if (type === 'hamburguesa') img = "fa-burger";
-        else if (type === 'taco') img = "fa-taco";
+        else if (type === 'taco') img = "fa-utensils";
 
         // Formateamos para quitar saltos de línea excesivos y funcione en línea en el HTML resultante
         const cleanOnclick = onclickAttr.replace(/\s+/g, ' ').trim();
@@ -493,14 +493,12 @@ function sendOrder() {
   const phone = "529991505132";
 
   // 3. Enviar a WhatsApp
-  setTimeout(() => {
-    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, "_blank");
+  window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, "_blank");
 
-    // Recargar la página después de enviarlo para limpiar el carrito y reiniciar todo
-    setTimeout(() => {
-      window.location.reload();
-    }, 1000);
-  }, 1000);
+  // Recargar la página después de enviarlo para limpiar el carrito y reiniciar todo
+  setTimeout(() => {
+    window.location.reload();
+  }, 1500);
 }
 
 // --- COMPARTIR UBICACIÓN (MAPA INTERACTIVO) ---
@@ -636,8 +634,6 @@ function generateBackgroundPattern() {
   // Iconos relacionados con comida y asador de FontAwesome
   const icons = [
     "fa-burger",
-    "fa-taco",
-    "fa-french-fries",
     "fa-hotdog",
     "fa-pizza-slice",
     "fa-fire",
