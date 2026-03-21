@@ -516,7 +516,7 @@ function sendOrder() {
     msg += `---\n📝 *Notas/Cambios:*\n_${notes}_\n`;
   }
 
-  const phone = "529991505132";
+  const phone = "529992725039";
 
   // 3. Enviar a WhatsApp
   window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, "_blank");
