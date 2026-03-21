@@ -296,14 +296,34 @@ function renderMarketing() {
 function checkStoreStatus() {
   const now = new Date();
   const hour = now.getHours();
+  const day = now.getDay(); // 0 = Domingo, 1 = Lunes, 2 = Martes, 3 = Miércoles, 4 = Jueves, 5 = Viernes, 6 = Sábado
+
   const btnContainer = document.querySelector(".whatsapp-final-btn");
   const btnText = btnContainer.querySelector("span");
   const lockModal = document.getElementById("modal-closed-lock");
   const appContainer = document.querySelector(".app-container");
   const addButtons = document.querySelectorAll(".add-btn");
 
+  // Días que el negocio NO trabaja (0=Dom, 1=Lun, 2=Mar, 3=Mié, 4=Jue, 5=Vie, 6=Sáb)
+  // Ejemplo: Si está cerrado los Lunes y Martes, cambia esto a [1, 2]
+  const diasCerrados = [2, 3];
+  const esDiaCerrado = diasCerrados.includes(day);
+
   // Horario: 7 PM (19) a 11 PM (23)
-  const isOpen = hour >= 19 && hour < 23;
+  const isTimeOpen = hour >= 19 && hour < 23;
+
+  const isOpen = isTimeOpen && !esDiaCerrado;
+
+  const titleEl = document.getElementById("closed-title");
+  const subtitleEl = document.getElementById("closed-subtitle");
+
+  if (esDiaCerrado) {
+    if (titleEl) titleEl.innerText = "¡Hoy descansamos!";
+    if (subtitleEl) subtitleEl.innerText = "Laboramos Lunes, Jueves, Viernes, Sábado y Domingo de 7:00 PM a 11:00 PM";
+  } else {
+    if (titleEl) titleEl.innerText = "¡Volvemos pronto!";
+    if (subtitleEl) subtitleEl.innerText = "Abrimos hoy a las 7:00 PM";
+  }
 
   if (isOpen) {
     appContainer.classList.remove("menu-blocked");
