@@ -309,8 +309,14 @@ function checkStoreStatus() {
   const diasCerrados = [2, 3];
   const esDiaCerrado = diasCerrados.includes(day);
 
-  // Horario: 7 PM (19) a 11 PM (23)
-  const isTimeOpen = hour >= 19 && hour < 23;
+  const minutes = now.getMinutes();
+
+  // Horario: 6:30 PM (18:30) a 11:15 PM (23:15)
+  const currentTimeInMinutes = hour * 60 + minutes;
+  const openTimeInMinutes = 18 * 60 + 30; // 6:30 PM
+  const closeTimeInMinutes = 23 * 60 + 15; // 11:15 PM
+
+  const isTimeOpen = currentTimeInMinutes >= openTimeInMinutes && currentTimeInMinutes < closeTimeInMinutes;
 
   const isOpen = isTimeOpen && !esDiaCerrado;
 
@@ -319,10 +325,10 @@ function checkStoreStatus() {
 
   if (esDiaCerrado) {
     if (titleEl) titleEl.innerText = "¡Hoy descansamos!";
-    if (subtitleEl) subtitleEl.innerText = "Laboramos Lunes, Jueves, Viernes, Sábado y Domingo de 7:00 PM a 11:00 PM";
+    if (subtitleEl) subtitleEl.innerText = "Laboramos Lunes, Jueves, Viernes, Sábado y Domingo de 6:30 PM a 11:15 PM";
   } else {
     if (titleEl) titleEl.innerText = "¡Volvemos pronto!";
-    if (subtitleEl) subtitleEl.innerText = "Abrimos hoy a las 7:00 PM";
+    if (subtitleEl) subtitleEl.innerText = "Abrimos hoy a las 6:30 PM";
   }
 
   if (isOpen) {

@@ -9,7 +9,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <link rel="icon" type="image/x-icon" href="Senivia.ico" />
 
@@ -862,12 +864,12 @@
       <!-- TARJETA 2: Datos Personales -->
       <div class="checkout-card">
         <h3 class="checkout-section-title"><i class="fa-solid fa-user"></i> Tus Datos Personales</h3>
-        
+
         <div class="input-with-icon">
           <i class="fa-solid fa-user-circle"></i>
           <input type="text" id="order-name" placeholder="Nombre completo *" oninput="removeError(this)">
         </div>
-        
+
         <div class="input-with-icon">
           <i class="fa-solid fa-phone"></i>
           <input type="tel" id="order-phone" placeholder="Celular (Opcional)">
@@ -877,7 +879,7 @@
       <!-- TARJETA 3: Método de Entrega -->
       <div class="checkout-card">
         <h3 class="checkout-section-title"><i class="fa-solid fa-truck-fast"></i> ¿Cómo recibirás tu pedido?</h3>
-        
+
         <div class="methods-grid" style="margin-bottom: 15px">
           <label class="method-option">
             <input type="radio" name="delivery-type" value="Para Recoger" checked onclick="toggleAddressField(false)" />
@@ -899,7 +901,7 @@
 
         <!-- Sección de Dirección (Oculta por defecto) -->
         <div id="address-section" style="display: none; padding-top: 10px; border-top: 1px solid #eee;">
-          
+
           <!-- COMPARTIR UBICACIÓN -->
           <div class="location-share-container">
             <div class="location-header">
@@ -936,7 +938,8 @@
           </div>
 
           <div class="delivery-fee-alert">
-            <i class="fa-solid fa-motorcycle" style="color: var(--accent-orange); font-size: 16px; margin-top: 2px;"></i>
+            <i class="fa-solid fa-motorcycle"
+              style="color: var(--accent-orange); font-size: 16px; margin-top: 2px;"></i>
             <p style="margin: 0; font-size: 12px; color: var(--brown-dark); line-height: 1.4;">
               <b>Costo de envío:</b> Varía según ubicación. Te lo cotizaremos al confirmar en WhatsApp.
             </p>
@@ -948,7 +951,8 @@
       <div class="checkout-card">
         <h3 class="checkout-section-title"><i class="fa-solid fa-comment-dots"></i> Notas o Cambios</h3>
         <div class="input-with-icon input-no-icon" style="margin-bottom: 0;">
-          <textarea id="order-notes" placeholder="Ej. Cambio de $500, sin cebolla extra, etc..." style="min-height: 60px;"></textarea>
+          <textarea id="order-notes" placeholder="Ej. Cambio de $500, sin cebolla extra, etc..."
+            style="min-height: 60px;"></textarea>
         </div>
       </div>
 
@@ -1013,7 +1017,7 @@
           ">
         <span class="material-symbols-rounded" style="color: var(--brown-dark)">schedule</span>
         <p id="closed-subtitle" style="font-weight: 800; margin: 0; color: var(--text)">
-          Abrimos hoy a las 7:00 PM
+          Abrimos hoy a las 6:30 PM
         </p>
       </div>
       <button class="confirm-btn" onclick="closeClosedModal()" style="
@@ -1100,25 +1104,25 @@
             margin-bottom: 20px;
           ">
         <div style="display: flex; justify-content: space-between">
-          <span>Lunes</span> <b>7:00 PM - 11:00 PM</b>
+          <span>Lunes</span> <b>6:30 PM - 11:15 PM</b>
         </div>
         <div style="display: flex; justify-content: space-between">
-          <span>Martes</span> <b>7:00 PM - 11:00 PM</b>
+          <span>Martes</span> <b>DIA DE DESCANSO</b>
         </div>
         <div style="display: flex; justify-content: space-between">
-          <span>Miércoles</span> <b>7:00 PM - 11:00 PM</b>
+          <span>Miércoles</span> <b>DIA DE DESCANSO</b>
         </div>
         <div style="display: flex; justify-content: space-between">
-          <span>Jueves</span> <b>7:00 PM - 11:00 PM</b>
+          <span>Jueves</span> <b>6:30 PM - 11:15 PM</b>
         </div>
         <div style="display: flex; justify-content: space-between">
-          <span>Viernes</span> <b>7:00 PM - 11:00 PM</b>
+          <span>Viernes</span> <b>6:30 PM - 11:15 PM</b>
         </div>
         <div style="display: flex; justify-content: space-between">
-          <span>Sábado</span> <b>7:00 PM - 11:00 PM</b>
+          <span>Sábado</span> <b>6:30 PM - 11:15 PM</b>
         </div>
         <div style="display: flex; justify-content: space-between">
-          <span>Domingo</span> <b>7:00 PM - 11:00 PM</b>
+          <span>Domingo</span> <b>6:30 PM - 11:15 PM</b>
         </div>
       </div>
       <button class="confirm-btn" onclick="closeHours()">Cerrar</button>
