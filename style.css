@@ -388,6 +388,33 @@ section {
   }
 }
 
+/* --- BADGE (ETIQUETA) DE PRODUCTO NUEVO --- */
+.badge-new {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 10px rgba(236, 72, 153, 0.4);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  animation: pulseBadge 2s ease-in-out infinite;
+}
+
+@keyframes pulseBadge {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
 .card-img {
   width: 100%;
   height: 175px;

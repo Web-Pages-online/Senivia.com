@@ -91,6 +91,38 @@
       </div>
       <div class="grid">
         <div class="card">
+          <img src="Guacatender.jpeg" class="card-img" onclick="openLightbox(this.src)" alt="Hamburguesa GuacaTender" />
+          <span class="badge-new"><i class="fa-solid fa-bolt"></i> ¡NUEVA BURGER!</span>
+          <div class="card-info">
+            <div onclick="
+                  openCustomizer(
+                    'Hamburguesa GuacaTender',
+                    165,
+                    ['Tender', 'Jamón', 'Queso', 'Tocino', 'Mayonesa chipotle','Tomate', 'Lechuga', 'Cebolla', 'Guacamole'],
+                    'hamburguesa',
+                  )
+                ">
+              <h3>GuacaTender</h3>
+              <p>Tender, jamón, queso, tocino, mayonesa chipotle, cebolla, tomate, lechuga y guacamole.</p>
+              <div class="includes-fries-tag"><i class="fa-solid fa-utensils"></i> Incluye papas fritas</div>
+            </div>
+            <div class="card-footer">
+              <span class="price">$165</span>
+              <button class="add-btn btn-burguer" onclick="
+                    openCustomizer(
+                      'Hamburguesa GuacaTender',
+                      165,
+                      ['Tender', 'Jamón', 'Queso', 'Tocino', 'Mayonesa chipotle','Tomate', 'Lechuga', 'Cebolla', 'Guacamole'],
+                      'hamburguesa',
+                    )
+                  ">
+                +
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
           <span class="badge-popular"><i class="fa-solid fa-fire"></i> Lo más pedido</span>
           <img src="Clasic.jpeg" class="card-img" onclick="openLightbox(this.src)" alt="Hamburguesa Clásica" />
           <div class="card-info">
@@ -137,8 +169,7 @@
         </div>
 
         <div class="card">
-          <img src="https://zedinaalimentos.com/wp-content/uploads/2024/07/Burguer-con-Queso-y-Champi.png"
-            class="card-img" onclick="openLightbox(this.src)" alt="Hamburguesa Champiñones" />
+          <img src="Champi.jpeg" class="card-img" onclick="openLightbox(this.src)" alt="Hamburguesa Champiñones" />
           <div class="card-info">
             <div onclick="
                   openCustomizer(
