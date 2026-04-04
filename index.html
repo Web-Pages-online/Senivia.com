@@ -869,7 +869,7 @@
 
         <div class="input-with-icon">
           <i class="fa-solid fa-phone"></i>
-          <input type="tel" id="order-phone" placeholder="Celular (Opcional)">
+          <input type="tel" id="order-phone" placeholder="Celular *" oninput="removeError(this)">
         </div>
       </div>
 
@@ -920,7 +920,7 @@
               <input type="text" id="order-street" placeholder="Calle *" oninput="removeError(this)">
             </div>
             <div class="input-with-icon input-no-icon" style="flex: 1;">
-              <input type="text" id="order-number" placeholder="# Ext">
+              <input type="text" id="order-number" placeholder="# Ext *" oninput="removeError(this)">
             </div>
           </div>
 
@@ -984,7 +984,7 @@
           padding: 35px 25px;
         ">
       <div style="color: #ff5252; font-size: 60px; margin-bottom: 20px">
-        <i class="fa-duotone fa-regular fa-shop-slash"></i>
+        <i class="fa-solid fa-store-slash"></i>
       </div>
       <h2 id="closed-title" style="
             color: var(--brown-dark);
@@ -1043,6 +1043,23 @@
             width: 100%;
           ">
         Ver horarios completos
+      </button>
+    </div>
+  </div>
+
+  <div id="modal-validation-error" class="modal" style="display: none; align-items: center; background: rgba(0, 0, 0, 0.85); z-index: 5000;">
+    <div class="modal-content" style="text-align: center; border-radius: 24px; width: 90%; max-width: 400px; margin: auto; padding: 35px 25px;">
+      <div style="color: var(--accent-orange); font-size: 50px; margin-bottom: 15px">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+      </div>
+      <h2 style="color: var(--brown-dark); margin-bottom: 10px; font-weight: 800;">Faltan Datos</h2>
+      <p style="color: #666; font-size: 14px; margin-bottom: 20px; line-height: 1.5;">
+        Para continuar, por favor completa:
+      </p>
+      <div id="validation-missing-list" style="background: #f8f9fa; padding: 15px; border-radius: 14px; margin-bottom: 25px; text-align: left; color: var(--text); font-size: 14px; font-weight: 600; line-height: 1.6; border: 1px solid #eee;">
+      </div>
+      <button class="confirm-btn" onclick="closeValidationError()" style="background: var(--brown-dark); color: white; border: none; width: 100%; padding: 15px; border-radius: 15px; font-weight: 700; cursor: pointer;">
+        Entendido
       </button>
     </div>
   </div>

@@ -422,33 +422,45 @@ function sendOrder() {
 
   // Validaciones Visuales
   let hasError = false;
+  let missingFields = [];
 
-  const validateField = (id) => {
+  const validateField = (id, fieldName) => {
     const el = document.getElementById(id);
-    if (!el.value.trim()) {
+    if (el && !el.value.trim()) {
       el.parentElement.classList.add("input-error");
+      missingFields.push(fieldName);
       hasError = true;
-    } else {
+    } else if (el) {
       el.parentElement.classList.remove("input-error");
     }
   };
 
-  validateField("order-name");
+  validateField("order-name", "Nombre completo");
+  validateField("order-phone", "Número de celular");
 
   if (deliveryType === "A domicilio") {
-    // Si no se compartió ubicación, calle y colonia son obligatorios
+    // Si es a domicilio, dirección y ubicación (GPS) son obligatorios
+    validateField("order-street", "Calle");
+    validateField("order-number", "Número Exterior");
+    validateField("order-colonia", "Colonia");
+    
+    // Validar ubicación GPS
     const lat = document.getElementById("order-lat").value;
+    const btn = document.getElementById("btn-share-location");
     if (!lat) {
-      validateField("order-street");
-      validateField("order-colonia");
+      if (btn) btn.classList.add("error");
+      missingFields.push("Ubicación GPS");
+      hasError = true;
     } else {
-      // Si hay GPS, limpiamos errores pre-existentes de calle/colonia
-      document.getElementById("order-street").parentElement.classList.remove("input-error");
-      document.getElementById("order-colonia").parentElement.classList.remove("input-error");
+      if (btn) btn.classList.remove("error");
     }
   }
 
   if (hasError) {
+    const listEl = document.getElementById("validation-missing-list");
+    listEl.innerHTML = missingFields.map(f => `<div style="padding: 4px 0;"><i class="fa-solid fa-circle-exclamation" style="color: var(--accent-orange); margin-right: 8px;"></i>${f}</div>`).join("");
+    document.getElementById("modal-validation-error").style.display = "flex";
+
     // Hacer scroll arriba para que el usuario vea el error
     document.querySelector('.checkout-sheet').scrollTo({ top: 0, behavior: 'smooth' });
     return;
@@ -458,50 +470,35 @@ function sendOrder() {
   // 1. Efecto Visual de Éxito
   launchSuccess();
 
-  // 2. Construir el Ticket de Texto Estructurado
-  let msg = `*Nombre:* ${name}\n`;
-  if (phoneInput) msg += `*Celular:* ${phoneInput}\n`;
+  // 2. Construir el Ticket de Texto Estructurado (Volvemos al sistema de texto puro)
+  let msg = `🍔 *SENIVIA - NUEVO PEDIDO* 🍟\n\n`;
+  msg += `👤 *Cliente:* ${name}\n`;
+  if (phoneInput) msg += `📱 *Celular:* ${phoneInput}\n`;
   msg += `\n---\n`;
 
   // Bloque Dirección
   if (deliveryType === "A domicilio") {
-    msg += `📍 Dirección\n`;
+    msg += `📍 *ENTREGA A DOMICILIO*\n`;
     msg += `* *Calle:* ${street}\n`;
     msg += `* *Número:* ${number}\n`;
     msg += `* *Colonia:* ${colonia}\n`;
     if (references) msg += `* *Referencias:* ${references}\n`;
 
-    // Obteniendo las coordenadas GPS (Si las hay)
+    // Coordenadas GPS
     const lat = document.getElementById("order-lat") ? document.getElementById("order-lat").value : "";
     const lng = document.getElementById("order-lng") ? document.getElementById("order-lng").value : "";
     if (lat && lng) {
-      msg += `* *Mapa:* https://maps.google.com/?q=${lat},${lng}\n`;
+      msg += `🌎 *Mapa:* https://maps.google.com/?q=${lat},${lng}\n`;
     }
-
     msg += `\n---\n`;
   } else {
-    msg += `🛍️ Pedido: *PASARÉ A RECOGER*\n`;
+    msg += `🛍️ *MODO:* PASARÉ POR ÉL\n`;
     msg += `\n---\n`;
   }
 
-  // Bloque Resumen Económico
-  msg += `💵 Resumen\n`;
-  msg += `* *Productos:* $${total}\n`;
-  if (deliveryType === "A domicilio") {
-    msg += `* *Envío:* 🚨 Por definir 🚨\n`;
-    msg += `* *Total:* $${total} + envío en EFECTIVO\n`;
-  } else {
-    msg += `* *Total:* $${total} en EFECTIVO\n`;
-  }
-  msg += `\n---\n`;
-
-  // Bloque Pedido Detallado
-  msg += `📋 Pedido\n`;
-
-  // Agrupar items idénticos basándonos en el nombre y detalles exactos
+  // Agrupar items
   let orderMap = {};
   cart.forEach(item => {
-    // Usamos el nombre y los detalles como clave única para agrupar
     const detailKey = item.details ? item.details : "";
     const key = `${item.item}|${detailKey}`;
     if (orderMap[key]) {
@@ -519,35 +516,47 @@ function sendOrder() {
   });
 
   // Imprimir cada línea del pedido agrupado
+  msg += `📋 *DETALLE DEL PEDIDO:*\n`;
   for (const key in orderMap) {
     const p = orderMap[key];
-    msg += `*${p.quantity}x* ${p.name} ($${p.subtotal})\n`;
+    msg += `*${p.quantity}x* ${p.name.toUpperCase()} ($${p.subtotal})\n`;
 
-    // Si tiene detalles (ingredientes o extras), imprimirlos como viñetas debajo
     if (p.details) {
-      // Intentamos separar los detalles por coma o punto para que se vean como viñetas
-      const detailParts = p.details.split(/[,.]+/);
+      const detailParts = p.details.split(". ");
       detailParts.forEach(part => {
         let cleanPart = part.trim();
         if (cleanPart) {
-          msg += `‣ _${cleanPart}_\n`;
+          if (cleanPart.startsWith("SIN:")) {
+            // Remarcamos lo que NO quieren con un emoji de prohibido
+            msg += `  🚫 _${cleanPart}_\n`;
+          } else if (cleanPart.startsWith("CON:")) {
+            msg += `  ➕ _${cleanPart}_\n`;
+          } else {
+            msg += `  ▪️ _${cleanPart}_\n`;
+          }
         }
       });
     }
-    msg += `\n`; // Salto de línea extra equivalente a tu ejemplo visual
+    msg += `\n`; 
   }
 
-  // Notas Adicionales Finales (Si las hay)
+  // Resumen Económico
+  msg += `---\n`;
+  msg += `💵 *RESUMEN:* $${total}\n`;
+  if (deliveryType === "A domicilio") {
+    msg += `_(+ Costo de envío por definir)_\n`;
+  }
+  msg += `*PAGO EN EFECTIVO A CONTRA ENTREGA*\n`;
+
+  // Notas
   if (notes) {
-    msg += `---\n📝 *Notas/Cambios:*\n_${notes}_\n`;
+    msg += `---\n📝 *NOTAS:*\n_${notes}_\n`;
   }
 
-  const phone = "529992725039";
+  const whatsappPhone = "529992725039";
+  window.open(`https://wa.me/${whatsappPhone}?text=${encodeURIComponent(msg)}`, "_blank");
 
-  // 3. Enviar a WhatsApp
-  window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, "_blank");
-
-  // Recargar la página después de enviarlo para limpiar el carrito y reiniciar todo
+  // Recargar la página después de un momento
   setTimeout(() => {
     window.location.reload();
   }, 1500);
@@ -737,12 +746,17 @@ window.onload = () => {
   }, 1200); // 1.2 segundos de animación inicial
 };
 
+function closeValidationError() {
+  document.getElementById("modal-validation-error").style.display = "none";
+}
+
 window.onclick = function (event) {
   const mC = document.getElementById("modal-custom");
   const mH = document.getElementById("modal-hours");
   const mP = document.getElementById("modal-payment");
   const mK = document.getElementById("modal-checkout");
   const mLock = document.getElementById("modal-closed-lock");
+  const mValError = document.getElementById("modal-validation-error");
   const lb = document.getElementById("lightbox");
 
   if (event.target == mC) closeModal();
@@ -750,5 +764,6 @@ window.onclick = function (event) {
   if (event.target == mP) closePayment();
   if (event.target == mK) closeCheckout();
   if (event.target == mLock) closeClosedModal();
+  if (event.target == mValError) closeValidationError();
   if (event.target == lb) closeLightbox();
 };
